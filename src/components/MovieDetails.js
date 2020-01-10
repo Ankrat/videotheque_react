@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 
 import '../styles/Details.css';
 
@@ -39,7 +39,15 @@ export default (props) => {
       className="background"
       style={{backgroundImage: `url(${img}original${state.get.backdrop_path})`, height: '100vh'}}>
       <Container>
-        <Image className="img-details" src={`${img}w500/${state.get.poster_path}`} rounded />
+        <Row>
+          <Col>
+            <Image className="img-details" src={`${img}w500/${state.get.poster_path}`} rounded />
+          </Col>
+          <Col>
+            <Button className="btn-add" variant="outline-success">Add to WatchList</Button>
+            <Button className="btn-add" variant="outline-warning">Add to Fav</Button>
+          </Col>
+        </Row>
         <h2>{state.get.original_title}</h2>
         <p>{state.get.release_date} / {state.get.runtime} min / {
             state.genres.map((elem, index) => (

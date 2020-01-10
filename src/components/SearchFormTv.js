@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Image } from 'react-bootstrap';
+import { Form, Image, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import '../styles/Search.css';
@@ -53,6 +53,8 @@ export default () => {
                 <Image src={`${img}w92${elem.poster_path}`} rounded />
                 {elem.name}
             </Link>
+            <Button className="btn-add" variant="outline-success">Add to WatchList</Button>
+            <Button className="btn-add" variant="outline-warning">Add to Fav</Button>
             </li>
           ))
         }

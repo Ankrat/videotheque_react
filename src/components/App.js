@@ -18,7 +18,7 @@ function App(props) {
           <Link className="nav-link" variant="primary" to='/'>Home</Link>
         </Nav.Item>
         <NavDropdown
-          title="Dropdown"
+          title="Search"
           id="nav-dropdown">
             <Link className="nav-link" variant="primary" to='/movie'>Movie</Link>
             <Link className="nav-link" variant="primary" to='/tv'>Tv</Link>

@@ -44,7 +44,15 @@ export default (props) => {
       className="background"
       style={{backgroundImage: `url(${img}original/${state.get.backdrop_path})`, height: '100vh'}}>
       <Container>
-        <Image className="img-details" src={`${img}w500/${state.get.poster_path}`} rounded />
+        <Row>
+          <Col>
+            <Image className="img-details" src={`${img}w500/${state.get.poster_path}`} rounded />
+          </Col>
+          <Col>
+            <Button className="btn-add" variant="outline-success">Add to WatchList</Button>
+            <Button className="btn-add" variant="outline-warning">Add to Fav</Button>
+          </Col>
+        </Row>
         <h2>{state.get.original_name}</h2>
         <p>{state.get.first_air_date} / {state.get.episode_run_time + ""} min / {
             state.genres.map((elem, index) => (
@@ -66,7 +74,7 @@ export default (props) => {
           <Accordion defaultActiveKey="0">
             {
               state.seasons.map((elem, index) => (
-                <Card className="color-background">
+                <Card key={index} className="color-background">
                   <Card.Header>
                     <Accordion.Toggle as={Button} variant="link" eventKey={index}>
                       {elem.name}
