@@ -1,0 +1,19 @@
+.background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+  height: auto;
+}
+.container {
+  background-color: rgba(28, 29, 31, 0.93);
+  height: auto;
+  padding: 10px;
+}
+.img-details {
+  margin-top: 15px;
+}
+
+.color-background {
+  background-color: #1C1D1F;
+}
