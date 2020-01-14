@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import '../styles/Search.css';
 
 
-const url = 'https://api.themoviedb.org/3/search/tv?api_key=18cb3ed1e51594213b505970b2c9a0bf&language=en-US&';
+const url = 'https://api.themoviedb.org/3/search/tv?api_key=' +
+            '18cb3ed1e51594213b505970b2c9a0bf&language=en-US&';
 const img = 'https://image.tmdb.org/t/p/';
 
 export default () => {
@@ -15,7 +16,7 @@ export default () => {
     get: [],
     query: 'a',
     page: 1,
-  })
+  });
   useEffect(() => {
     search(state.query, state.page);
   }, [state.page, state.query]);
@@ -27,11 +28,11 @@ export default () => {
         .then(response => {
           setState({ get: response.data.results });
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
     }
-  }
+  };
 
   return (
 
@@ -41,8 +42,8 @@ export default () => {
         placeholder="Normal text"
         onChange={e => setState({
           ...state,
-          query: e.target.value
-         })}
+          query: e.target.value,
+        })}
         autoFocus
       />
       <ul>
@@ -52,9 +53,13 @@ export default () => {
               <Link to={`/details/tv/${elem.id}`}>
                 <Image src={`${img}w92${elem.poster_path}`} rounded />
                 {elem.name}
-            </Link>
-            <Button className="btn-add" variant="outline-success">Add to WatchList</Button>
-            <Button className="btn-add" variant="outline-warning">Add to Fav</Button>
+              </Link>
+              <Button
+                className="btn-add"
+                variant="outline-success">Add to WatchList</Button>
+              <Button
+                className="btn-add"
+                variant="outline-warning">Add to Fav</Button>
             </li>
           ))
         }
@@ -62,4 +67,4 @@ export default () => {
     </>
 
   );
-}
+};

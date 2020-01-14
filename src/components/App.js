@@ -15,24 +15,28 @@ function App(props) {
     <>
       <Nav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Link className="nav-link" variant="primary" to='/'>Home</Link>
+          <Link className="nav-link" variant="primary" to="/">Home</Link>
         </Nav.Item>
         <NavDropdown
           title="Search"
           id="nav-dropdown">
-            <Link className="nav-link" variant="primary" to='/movie'>Movie</Link>
-            <Link className="nav-link" variant="primary" to='/tv'>Tv</Link>
+          <Link
+            className="nav-link"
+            variant="primary" to="/movie">Movie</Link>
+          <Link
+            className="nav-link"
+            variant="primary" to="/tv">Tv</Link>
         </NavDropdown>
       </Nav>
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/movie' component={SearchFormMovie} />
-        <Route path='/details/movie/:id' component={MovieDetails} />
-        <Route path='/details/tv/:id' component={TvDetails} />
-        <Route path='/tv' component={SearchFormTv} />
+        <Route exact path="/" component={Home} />
+        <Route path="/movie" component={SearchFormMovie} />
+        <Route path="/details/movie/:id" component={MovieDetails} />
+        <Route path="/details/tv/:id" component={TvDetails} />
+        <Route path="/tv" component={SearchFormTv} />
       </Switch>
     </>
-  )
+  );
 }
 
 export default App;
