@@ -4,7 +4,7 @@ import { Tabs, Tab } from '@poool/junipero';
 import SearchFormMovie from './SearchFormMovie';
 import SearchFormTv from './SearchFormTv';
 
-import '../styles/Search.css';
+import '../../styles/Search.css';
 
 export default () => {
   return (

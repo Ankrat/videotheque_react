@@ -5,10 +5,9 @@ import { Form, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextField, Button } from '@poool/junipero';
 
-import '../styles/Search.css';
+import '../../styles/Search.css';
 
-
-const url = 'https://api.themoviedb.org/3/search/tv?api_key=' +
+const url = 'https://api.themoviedb.org/3/search/movie?api_key=' +
             '18cb3ed1e51594213b505970b2c9a0bf&language=en-US&';
 const img = 'https://image.tmdb.org/t/p/';
 
@@ -19,43 +18,47 @@ export default () => {
     page: 1,
   });
   useEffect(() => {
-    search(state.query, state.page);
+    if (state.query !== undefined) {
+      search(state.query, state.page);
+    }
   }, [state.page, state.query]);
 
   const search = (query, page) => {
 
-    if (state.query !== undefined) {
-      axios.get(`${url}query=${query}&page=${page}`)
-        .then(response => {
-          setState({ get: response.data.results });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
+      .then(response => {
+        setState({ get: response.data.results });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
 
     <>
-      <h2>Tv</h2>
+      <h2>Movie</h2>
       <TextField
-        type="text"
         boxed={true}
+        type="text"
         placeholder="NAME"
         onChange={e => setState({
           ...state,
           query: e.value,
         })}
+        onSubmit={e => {
+          e.preventDefault();
+
+        }}
         autoFocus
       />
       <ul>
         {
           state.get.map((elem, index) => (
             <li key={index}>
-              <Link to={`/details/tv/${elem.id}`}>
+              <Link to={`/details/movie/${elem.id}`}>
                 <Image src={`${img}w92${elem.poster_path}`} rounded />
-                {elem.name}
+                {elem.title}
               </Link>
               <Button
                 className="btn-add"

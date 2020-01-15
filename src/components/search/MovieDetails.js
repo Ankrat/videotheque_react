@@ -5,7 +5,7 @@ import { Container, Row, Col, Image } from 'react-bootstrap';
 import { Button } from '@poool/junipero';
 
 
-import '../styles/Details.css';
+import '../../styles/Details.css';
 
 
 const url = 'https://api.themoviedb.org/3/movie/';

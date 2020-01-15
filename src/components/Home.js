@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab } from '@poool/junipero';
 
 import '../styles/Home.css';
 
@@ -7,11 +8,11 @@ export default () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col md={12}><h1>Hello !</h1></Col>
-        </Row>
-      </Container>
+      <h1>WatchList</h1>
+      <Tabs>
+        <Tab title="Movie"></Tab>
+        <Tab title="Tv"></Tab>
+      </Tabs>
     </>
   );
 };

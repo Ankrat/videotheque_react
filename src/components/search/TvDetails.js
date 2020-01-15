@@ -6,7 +6,7 @@ import { Container, Row, Col, Image,
 import { Button } from '@poool/junipero';
 
 
-import '../styles/Details.css';
+import '../../styles/Details.css';
 
 
 const url = 'https://api.themoviedb.org/3/tv/';
@@ -47,7 +47,7 @@ export default (props) => {
       className="background"
       style={{backgroundImage: `url(${img}original/${state.get.backdrop_path})`,
         height: '100vh'}}>
-      <Container className='details'>
+      <Container className="details">
         <Row>
           <Col>
             <Image
@@ -79,7 +79,7 @@ export default (props) => {
         <h2>SYNOPSIS ET DÉTAILS</h2>
         <p>{state.get.overview}</p>
         <h2><Button
-          variant="outline-info"
+          type="primary"
           onClick={() => setState({
             ...state,
             open_details: !state.open_details,
@@ -94,7 +94,8 @@ export default (props) => {
                   <Card.Header>
                     <Accordion.Toggle
                       as={Button}
-                      variant="link"
+                      type="primary"
+                      theme="none"
                       eventKey={index}>
                       {elem.name}
                     </Accordion.Toggle>
@@ -110,7 +111,6 @@ export default (props) => {
               ))
             }
           </Accordion>
-
 
         </Collapse>
 
