@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Image, Button } from 'react-bootstrap';
+import { Form, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { TextField, Button } from '@poool/junipero';
 
 import '../styles/Search.css';
 
@@ -17,32 +18,33 @@ export default () => {
     page: 1,
   });
   useEffect(() => {
-    search(state.query, state.page);
+    if (state.query !== undefined) {
+      search(state.query, state.page);
+    }
   }, [state.page, state.query]);
 
   const search = (query, page) => {
 
-    if (state.query !== undefined) {
-      axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
-        .then(response => {
-          setState({ get: response.data.results });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
+      .then(response => {
+        setState({ get: response.data.results });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
 
     <>
       <h2>Movie</h2>
-      <Form.Control
+      <TextField
+        boxed={true}
         type="text"
-        placeholder="Normal text"
+        placeholder="NAME"
         onChange={e => setState({
           ...state,
-          query: e.target.value,
+          query: e.value,
         })}
         onSubmit={e => {
           e.preventDefault();
@@ -60,10 +62,14 @@ export default () => {
               </Link>
               <Button
                 className="btn-add"
-                variant="outline-success">Add to WatchList</Button>
+                reversed={true}
+                type="success"
+              >Add to WatchList</Button>
               <Button
                 className="btn-add"
-                variant="outline-warning">Add to Fav</Button>
+                reversed={true}
+                type="warning"
+              >Add to Fav</Button>
             </li>
           ))
         }

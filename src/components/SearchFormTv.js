@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Image, Button } from 'react-bootstrap';
+import { Form, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { TextField, Button } from '@poool/junipero';
 
 import '../styles/Search.css';
 
@@ -38,11 +39,13 @@ export default () => {
 
     <>
       <h2>Tv</h2>
-      <Form.Control type="text"
-        placeholder="Normal text"
+      <TextField
+        type="text"
+        boxed={true}
+        placeholder="NAME"
         onChange={e => setState({
           ...state,
-          query: e.target.value,
+          query: e.value,
         })}
         autoFocus
       />
@@ -56,10 +59,14 @@ export default () => {
               </Link>
               <Button
                 className="btn-add"
-                variant="outline-success">Add to WatchList</Button>
+                reversed={true}
+                type="success"
+              >Add to WatchList</Button>
               <Button
                 className="btn-add"
-                variant="outline-warning">Add to Fav</Button>
+                reversed={true}
+                type="warning"
+              >Add to Fav</Button>
             </li>
           ))
         }

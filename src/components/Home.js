@@ -9,7 +9,7 @@ export default () => {
     <>
       <Container>
         <Row>
-          <Col md={12}><h1>Choose</h1></Col>
+          <Col md={12}><h1>Hello !</h1></Col>
         </Row>
       </Container>
     </>
