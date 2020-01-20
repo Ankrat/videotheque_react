@@ -57,7 +57,7 @@ export default () => {
           state.get.map((elem, index) => (
             <li key={index}>
               <Link to={`/details/movie/${elem.id}`}>
-                <Image src={`${img}w92${elem.poster_path}`} rounded />
+                {console.log(<Image src={`${img}w92${elem.poster_path}`} rounded />)}
                 {elem.title}
               </Link>
               <Button
