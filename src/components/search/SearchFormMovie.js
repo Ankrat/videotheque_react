@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { TextField, Button } from '@poool/junipero';
+import { TextField } from '@poool/junipero';
 
 import '../../styles/Search.css';
+import ButtonAdd from '../fragments/ButtonAdd';
+
 
 const url = 'https://api.themoviedb.org/3/search/movie?api_key=' +
             '18cb3ed1e51594213b505970b2c9a0bf&language=en-US&';
@@ -48,7 +50,6 @@ export default () => {
         })}
         onSubmit={e => {
           e.preventDefault();
-
         }}
         autoFocus
       />
@@ -57,19 +58,21 @@ export default () => {
           state.get.map((elem, index) => (
             <li key={index}>
               <Link to={`/details/movie/${elem.id}`}>
-                {console.log(<Image src={`${img}w92${elem.poster_path}`} rounded />)}
+                <Image src={`${img}w92${elem.poster_path}`} rounded />
                 {elem.title}
               </Link>
-              <Button
+              <ButtonAdd
+                title="Add to WatchList"
                 className="btn-add"
                 reversed={true}
                 type="success"
-              >Add to WatchList</Button>
-              <Button
-                className="btn-add"
-                reversed={true}
-                type="warning"
-              >Add to Fav</Button>
+                url="http://localhost:8085/api/watchlist-mv"
+                data={{
+                  img: elem.poster_path,
+                  title: elem.title,
+                  id_details: elem.id,
+                }}
+              />
             </li>
           ))
         }

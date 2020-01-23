@@ -9,7 +9,7 @@ import ButtonDel from '../fragments/ButtonDel';
 
 
 // const apiKey = '?api_key=18cb3ed1e51594213b505970b2c9a0bf&language=en-US';
-const url = 'http://localhost:8085/api/watchlist-mv';
+const url = 'http://localhost:8085/api/watchlist-tv';
 
 const img = 'https://image.tmdb.org/t/p/';
 
@@ -38,7 +38,7 @@ export default (props) => {
       return (
         state.get.data.map((items, index) => (
           <li key={index}>
-            <Link to={`/details/movie/${items.id_details}`}>
+            <Link to={`/details/tv/${items.id_details}`}>
               <Image src={`${img}w92${items.img}`} rounded />
               {items.title}
             </Link>
@@ -48,7 +48,7 @@ export default (props) => {
               reversed={true}
               type="danger"
               data={items._id}
-              url="http://localhost:8085/api/watchlist-mv"
+              url="http://localhost:8085/api/watchlist-tv"
               onClick={() => setState({
                 fetching: true,
                 delete: !state.delete,

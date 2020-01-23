@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { TextField, Button } from '@poool/junipero';
+import { TextField } from '@poool/junipero';
 
 import '../../styles/Search.css';
+import ButtonAdd from '../fragments/ButtonAdd';
 
 
 const url = 'https://api.themoviedb.org/3/search/tv?api_key=' +
@@ -57,16 +58,18 @@ export default () => {
                 <Image src={`${img}w92${elem.poster_path}`} rounded />
                 {elem.name}
               </Link>
-              <Button
+              <ButtonAdd
+                title="Add to WatchList"
                 className="btn-add"
                 reversed={true}
                 type="success"
-              >Add to WatchList</Button>
-              <Button
-                className="btn-add"
-                reversed={true}
-                type="warning"
-              >Add to Fav</Button>
+                url="http://localhost:8085/api/watchlist-tv"
+                data={{
+                  img: elem.poster_path,
+                  title: elem.name,
+                  id_details: elem.id,
+                }}
+              />
             </li>
           ))
         }
