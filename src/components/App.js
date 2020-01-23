@@ -4,6 +4,7 @@ import { Nav } from 'react-bootstrap';
 
 import '../styles/App.css';
 import Home from './Home';
+import List from './List';
 import MovieDetails from './search/MovieDetails';
 import TvDetails from './search/TvDetails';
 import Search from './search/Search';
@@ -18,7 +19,7 @@ function App(props) {
           className="nav-link nav-custom"
           variant="primary"
           to="/home"
-        >Home
+        >WatchList
         </NavLink>
 
         <NavLink
@@ -30,8 +31,9 @@ function App(props) {
         </NavLink>
       </Nav>
       <Switch>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/search" component={Search} />
+        <Route exact path="/" component={Home} />
+        <Route path="/home" component={List} />
+        <Route path="/search" component={Search} />
         <Route path="/details/movie/:id" component={MovieDetails} />
         <Route path="/details/tv/:id" component={TvDetails} />
       </Switch>
