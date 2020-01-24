@@ -23,9 +23,9 @@ export default () => {
 
     axios.post('http://localhost:8085/auth/signup', {
       name: state.name,
-      userName: state.userName,
+      username: state.userName,
       email: state.email,
-      passwd: state.passwd,
+      password: state.passwd,
     })
       .then(res => console.log(res))
       .catch(err => console.log(err));
@@ -43,17 +43,32 @@ export default () => {
               <TextField
                 boxed={true}
                 placeholder="Name"
+                onChange={e => setState({
+                  ...state,
+                  name: e.value,
+                })}
+                required
               />
             </div>
             <div className="txt-field">
               <TextField
                 placeholder="User Name"
+                onChange={e => setState({
+                  ...state,
+                  userName: e.value,
+                })}
+                required
               />
             </div>
             <div className="txt-field">
               <TextField
                 boxed={true}
                 placeholder="Email"
+                onChange={e => setState({
+                  ...state,
+                  email: e.value,
+                })}
+                required
               />
             </div>
             <div className="txt-field">
@@ -61,6 +76,11 @@ export default () => {
                 theme="none"
                 type="password"
                 placeholder="Password"
+                onChange={e => setState({
+                  ...state,
+                  passwd: e.value,
+                })}
+                required
               />
             </div>
             <div className="btn-log">
@@ -68,6 +88,7 @@ export default () => {
                 type="primary"
                 size="big"
                 submit={true}
+                onClick={submit}
               >Send
               </Button>
             </div>
