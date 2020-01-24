@@ -13,6 +13,8 @@ const url = 'http://localhost:8085/api/watchlist-tv';
 
 const img = 'https://image.tmdb.org/t/p/';
 
+const AuthStr = sessionStorage.getItem('Authorization');
+
 export default (props) => {
   const [state, setState] = useState({
     get: {},
@@ -25,7 +27,9 @@ export default (props) => {
   }, [state.delete]);
 
   const details = () => {
-    axios.get(`${url}`)
+    axios.get(`${url}`, {
+      headers: { Authorization: AuthStr },
+    })
       .then(response => {
         setState({
           get: response.data,

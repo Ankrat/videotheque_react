@@ -1,23 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { TextField, Button } from '@poool/junipero';
 
+import '../../styles/Forms.css';
+
 export default () => {
 
-  return (
+  const [state, setState] = useState({
+    name: '',
+    userName: '',
+    email: '',
+    passwd: '',
+  });
 
+  const submit = event => {
+
+    event.preventDefault();
+
+    axios.post('http://localhost:8085/auth/signup', {
+      name: state.name,
+      userName: state.userName,
+      email: state.email,
+      passwd: state.passwd,
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+  return (
     <Container>
       <Row className="justify-content-md-center">
         <Col xs={5}>
-          <div className="from-sign">
+          <Form
+            className="from-sign"
+            onSubmit={submit}
+          >
             <div className="txt-field">
               <TextField
                 boxed={true}
-                placeholder="First name"
+                placeholder="Name"
+              />
+            </div>
+            <div className="txt-field">
+              <TextField
+                placeholder="User Name"
+              />
+            </div>
+            <div className="txt-field">
+              <TextField
+                boxed={true}
+                placeholder="Email"
               />
             </div>
             <div className="txt-field">
@@ -35,11 +71,10 @@ export default () => {
               >Send
               </Button>
             </div>
-          </div>
+          </Form>
         </Col>
       </Row>
     </Container>
-
   );
 
 };

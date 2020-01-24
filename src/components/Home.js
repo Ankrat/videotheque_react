@@ -11,8 +11,8 @@ export default () => {
     <>
       <h1>Authentifcation</h1>
       <Tabs>
-        <Tab title="Login"><Signup /></Tab>
-        <Tab title="Signup"><Login /></Tab>
+        <Tab title="Login"><Login /></Tab>
+        <Tab title="Signup"><Signup /></Tab>
       </Tabs>
     </>
   );

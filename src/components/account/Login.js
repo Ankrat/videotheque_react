@@ -1,40 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { TextField, Button } from '@poool/junipero';
 
-import '../../styles/Forms.css';
+const Account = () => {
 
-export default () => {
+  const [state, setState] = useState({
+    email: '',
+    passwd: '',
+  });
 
-  const [state, setState] = useState();
+  const submit = event => {
+
+    event.preventDefault();
+
+    axios.post('http://localhost:8085/auth/login', {
+      email: state.email,
+      password: state.passwd,
+    })
+      .then(res => sessionStorage
+        .setItem('Authorization', `Bearer ${res.data.token}`))
+      .catch(err => console.log(err));
+  };
 
   return (
     <Container>
       <Row className="justify-content-md-center">
         <Col xs={5}>
-          <div className="from-sign">
-            <div className="txt-field">
-              <TextField
-                boxed={true}
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div className="txt-field">
-              <TextField
-                placeholder="User Name"
-                required
-              />
-            </div>
+          <form
+            className="from-sign"
+            onSubmit={submit}
+          >
             <div className="txt-field">
               <TextField
                 boxed={true}
                 placeholder="Email"
-                required
+                onChange={e => setState({
+                  ...state,
+                  email: e.value,
+                })}
               />
             </div>
             <div className="txt-field">
@@ -42,7 +49,10 @@ export default () => {
                 theme="none"
                 type="password"
                 placeholder="Password"
-                required
+                onChange={e => setState({
+                  ...state,
+                  passwd: e.value,
+                })}
               />
             </div>
             <div className="btn-log">
@@ -50,13 +60,17 @@ export default () => {
                 type="primary"
                 size="big"
                 submit={true}
+                onClick={submit}
               >Send
               </Button>
             </div>
-          </div>
+          </form>
         </Col>
       </Row>
     </Container>
+
   );
 
 };
+
+export default Account;
