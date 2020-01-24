@@ -5,6 +5,7 @@ import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextField } from '@poool/junipero';
 
+import noimg from '../../styles/img/noimg.png';
 import '../../styles/Search.css';
 import ButtonAdd from '../fragments/ButtonAdd';
 
@@ -29,10 +30,14 @@ export default () => {
 
     axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
       .then(response => {
-        setState({ get: response.data.results });
+        if (response.status === 200) {
+          setState({ get: response.data.results });
+        } else {
+          throw new Error('Erreur');
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -58,7 +63,9 @@ export default () => {
           state.get.map((elem, index) => (
             <li key={index}>
               <Link to={`/details/movie/${elem.id}`}>
-                <Image src={`${img}w92${elem.poster_path}`} rounded />
+                <Image src={ elem.poster_path ?
+                  `${img}w92${elem.poster_path}` :
+                  noimg } rounded />
                 {elem.title}
               </Link>
               <ButtonAdd
