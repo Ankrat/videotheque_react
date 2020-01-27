@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import { TextField, Button } from '@poool/junipero';
 
