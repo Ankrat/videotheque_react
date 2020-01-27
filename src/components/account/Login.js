@@ -10,6 +10,8 @@ const Account = () => {
   const [state, setState] = useState({
     email: '',
     passwd: '',
+    err_1: false,
+    err_2: false,
   });
 
   const submit = event => {
@@ -29,7 +31,21 @@ const Account = () => {
           .setItem('userName', res.data.userName);
         window.location = '/home';
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err.response.data.code === 1) {
+          setState({
+            ...state,
+            err_2: false,
+            err_1: true,
+          });
+        } else if (err.response.data.code === 2) {
+          setState({
+            ...state,
+            err_1: false,
+            err_2: true,
+          });
+        }
+      });
 
 
   };
@@ -52,6 +68,10 @@ const Account = () => {
                 })}
                 required
               />
+              { state.err_1 ?
+                ( <span className="err">User Unknown</span> ) :
+                ''
+              }
             </div>
             <div className="txt-field">
               <TextField
@@ -64,6 +84,10 @@ const Account = () => {
                 })}
                 required
               />
+              { state.err_2 ?
+                ( <span className="err">Wrong Password</span> ) :
+                ''
+              }
             </div>
             <div className="btn-log">
               <Button

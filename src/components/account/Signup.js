@@ -14,6 +14,7 @@ export default () => {
     userName: '',
     email: '',
     passwd: '',
+    err_666: false,
   });
 
   const submit = event => {
@@ -27,7 +28,14 @@ export default () => {
       password: state.passwd,
     })
       .then(res => window.location = '/')
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err.response.data.code === 666) {
+          setState({
+            ...state,
+            err_666: true,
+          });
+        }
+      });
 
   };
 
@@ -70,6 +78,10 @@ export default () => {
                 })}
                 required
               />
+              { state.err_666 ?
+                ( <span className="err">email already exists</span> ) :
+                ''
+              }
             </div>
             <div className="txt-field">
               <TextField

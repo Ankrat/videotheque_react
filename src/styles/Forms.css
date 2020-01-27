@@ -4,3 +4,12 @@
 .btn-log {
   text-align: right;
 }
+.err {
+  color: #D0051B;
+}
+h3 {
+  text-align: center;
+  background-color: #DC8D08;
+  padding: 10px;
+  color: white;
+}
