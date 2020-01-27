@@ -18,3 +18,6 @@ code {
   background-color: #FCFCFC;
   height: 100vh;
 }
+p {
+  margin-bottom: 0!important;
+}

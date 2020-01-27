@@ -6,6 +6,7 @@ import WatchListMovie from './watchlist/WatchListMovie';
 import WatchListTv from './watchlist/WatchListTv';
 
 const AuthStr = sessionStorage.getItem('Authorization');
+const userName = sessionStorage.getItem('userName');
 
 export default () => {
 
@@ -13,22 +14,28 @@ export default () => {
     <>
       <h1>WatchList</h1>
       { AuthStr ?
-        ( <Button
-          className="redirect-log-btn"
-          reversed={true}
-          type="danger"
-          onClick={() => {
-            sessionStorage.clear();
-            window.location = '/';
-          }}
-        >Disconnect
-        </Button> ) :
-        ( <Button
-          className="redirect-log-btn"
-          type="primary"
-          onClick={() => window.location = '/'}
-        >Login
-        </Button> )
+        (
+          <div className="redirect-log-btn">
+            <p>{ userName }</p>
+            <Button
+              reversed={true}
+              type="danger"
+              onClick={() => {
+                sessionStorage.clear();
+                window.location = '/';
+              }}
+            >Disconnect
+            </Button>
+          </div>
+        ) :
+        (
+          <Button
+            className="redirect-log-btn"
+            type="primary"
+            onClick={() => window.location = '/'}
+          >Login
+          </Button>
+        )
       }
       <Tabs>
         <Tab title="Movie"><WatchListMovie /></Tab>

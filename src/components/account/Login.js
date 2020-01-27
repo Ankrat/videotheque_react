@@ -26,6 +26,8 @@ const Account = () => {
           .setItem('Authorization', `Bearer ${res.data.token}`);
         sessionStorage
           .setItem('userId', res.data.userId);
+        sessionStorage
+          .setItem('userName', res.data.userName);
       })
       .catch(err => console.log(err));
   };
