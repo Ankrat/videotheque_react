@@ -25,7 +25,9 @@ export default (props) => {
   });
 
   useEffect(() => {
-    details();
+    if (AuthStr !== null) {
+      details();
+    }
   }, [state.delete]);
 
   const details = () => {

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { TextField } from '@poool/junipero';
 
 import '../../styles/Search.css';
+import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
 
 
@@ -20,7 +21,9 @@ export default () => {
     page: 1,
   });
   useEffect(() => {
-    search(state.query, state.page);
+    if (state.query !== undefined && state.query !== '') {
+      search(state.query, state.page);
+    }
   }, [state.page, state.query]);
 
   const search = (query, page) => {
@@ -28,7 +31,10 @@ export default () => {
     if (state.query !== undefined) {
       axios.get(`${url}query=${query}&page=${page}`)
         .then(response => {
-          setState({ get: response.data.results });
+          setState({
+            ...state,
+            get: response.data.results,
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -55,7 +61,9 @@ export default () => {
           state.get.map((elem, index) => (
             <li key={index}>
               <Link to={`/details/tv/${elem.id}`}>
-                <Image src={`${img}w92${elem.poster_path}`} rounded />
+                <Image src={ elem.poster_path ?
+                  `${img}w92${elem.poster_path}` :
+                  noimg } rounded />
                 {elem.name}
               </Link>
               <ButtonAdd

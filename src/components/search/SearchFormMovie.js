@@ -5,8 +5,8 @@ import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextField } from '@poool/junipero';
 
-import noimg from '../../styles/img/noimg.png';
 import '../../styles/Search.css';
+import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
 
 
@@ -15,13 +15,15 @@ const url = 'https://api.themoviedb.org/3/search/movie?api_key=' +
 const img = 'https://image.tmdb.org/t/p/';
 
 export default () => {
+
   const [state, setState] = useState({
     get: [],
     query: 'a',
     page: 1,
   });
+
   useEffect(() => {
-    if (state.query !== undefined) {
+    if (state.query !== undefined && state.query !== '') {
       search(state.query, state.page);
     }
   }, [state.page, state.query]);
@@ -31,7 +33,10 @@ export default () => {
     axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
       .then(response => {
         if (response.status === 200) {
-          setState({ get: response.data.results });
+          setState({
+            ...state,
+            get: response.data.results,
+          });
         } else {
           throw new Error('Erreur');
         }

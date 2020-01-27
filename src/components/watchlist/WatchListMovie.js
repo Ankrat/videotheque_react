@@ -24,7 +24,9 @@ export default (props) => {
   });
 
   useEffect(() => {
-    details();
+    if (AuthStr !== null) {
+      details();
+    }
   }, [state.delete]);
 
   const details = () => {
@@ -34,8 +36,11 @@ export default (props) => {
       .then(response => {
         setState({
           get: response.data,
-          fetching: false });
-      }).catch(err => console.log(err));
+          fetching: false,
+        });
+      }).catch(err => {
+        console.log(err);
+      });
   };
 
   const render = () => {
