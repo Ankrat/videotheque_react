@@ -16,11 +16,11 @@ export default ({
 }) => {
 
   const remove = () => {
-    axios.delete(`${url}/${data}`)
+    axios.delete(`${url}/${data}`, {
+      headers: { Authorization: AuthStr },
+    })
       .then(res => {
         console.log(res);
-      }, {
-        headers: { Authorization: AuthStr },
       })
       .catch((error) => {
         console.log(error);

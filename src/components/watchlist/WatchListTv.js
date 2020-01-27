@@ -54,7 +54,7 @@ export default (props) => {
               reversed={true}
               type="danger"
               data={items._id}
-              url="http://localhost:8085/api/watchlist-tv/"
+              url="http://localhost:8085/api/watchlist-tv"
               onClick={() => setState({
                 fetching: true,
                 delete: !state.delete,
