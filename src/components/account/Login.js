@@ -27,8 +27,11 @@ const Account = () => {
           .setItem('userId', res.data.userId);
         sessionStorage
           .setItem('userName', res.data.userName);
+        window.location = '/home';
       })
       .catch(err => console.log(err));
+
+
   };
 
   return (

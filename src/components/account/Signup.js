@@ -26,8 +26,9 @@ export default () => {
       email: state.email,
       password: state.passwd,
     })
-      .then(res => console.log(res))
+      .then(res => window.location = '/')
       .catch(err => console.log(err));
+
   };
 
   return (
