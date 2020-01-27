@@ -63,7 +63,7 @@ export default () => {
                 className="btn-add"
                 reversed={true}
                 type="success"
-                url="http://localhost:8085/api/watchlist-tv"
+                url="http://localhost:8085/api/watchlist-tv/"
                 data={{
                   img: elem.poster_path,
                   title: elem.name,

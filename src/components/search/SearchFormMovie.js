@@ -68,12 +68,13 @@ export default () => {
                   noimg } rounded />
                 {elem.title}
               </Link>
+              { elem.adult ? '🔞' : '' }
               <ButtonAdd
                 title="Add to WatchList"
                 className="btn-add"
                 reversed={true}
                 type="success"
-                url="http://localhost:8085/api/watchlist-mv"
+                url="http://localhost:8085/api/watchlist-mv/"
                 data={{
                   img: elem.poster_path,
                   title: elem.title,

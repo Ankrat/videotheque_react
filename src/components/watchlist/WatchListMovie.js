@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
 
-
 // const apiKey = '?api_key=18cb3ed1e51594213b505970b2c9a0bf&language=en-US';
-const url = 'http://localhost:8085/api/watchlist-mv';
+const url = 'http://localhost:8085/api/watchlist-mv/';
 
 const img = 'https://image.tmdb.org/t/p/';
 
 const AuthStr = sessionStorage.getItem('Authorization');
+
+const userId = sessionStorage.getItem('userId');
 
 export default (props) => {
   const [state, setState] = useState({
@@ -27,7 +28,7 @@ export default (props) => {
   }, [state.delete]);
 
   const details = () => {
-    axios.get(`${url}`, {
+    axios.get(`${url}${userId}`, {
       headers: { Authorization: AuthStr },
     })
       .then(response => {
@@ -52,7 +53,7 @@ export default (props) => {
               reversed={true}
               type="danger"
               data={items._id}
-              url="http://localhost:8085/api/watchlist-mv"
+              url="http://localhost:8085/api/watchlist-mv/"
               onClick={() => setState({
                 fetching: true,
                 delete: !state.delete,
