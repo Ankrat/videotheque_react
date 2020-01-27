@@ -47,6 +47,7 @@ const Account = () => {
                   ...state,
                   email: e.value,
                 })}
+                required
               />
             </div>
             <div className="txt-field">
@@ -58,6 +59,7 @@ const Account = () => {
                   ...state,
                   passwd: e.value,
                 })}
+                required
               />
             </div>
             <div className="btn-log">
@@ -65,7 +67,7 @@ const Account = () => {
                 type="primary"
                 size="big"
                 submit={true}
-                onClick={submit}
+                tag="button"
               >Send
               </Button>
             </div>

@@ -87,7 +87,7 @@ export default () => {
                 type="primary"
                 size="big"
                 submit={true}
-                onClick={submit}
+                tag="button"
               >Send
               </Button>
             </div>
