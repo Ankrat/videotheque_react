@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form } from 'react-bootstrap';
@@ -21,8 +21,12 @@ const Account = () => {
       email: state.email,
       password: state.passwd,
     })
-      .then(res => sessionStorage
-        .setItem('Authorization', `Bearer ${res.data.token}`))
+      .then(res => {
+        sessionStorage
+          .setItem('Authorization', `Bearer ${res.data.token}`);
+        sessionStorage
+          .setItem('userId', res.data.userId);
+      })
       .catch(err => console.log(err));
   };
 
