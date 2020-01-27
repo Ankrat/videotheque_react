@@ -11,3 +11,7 @@ ul {
 .btn-add {
   margin-left: 10px;
 }
+.redirect-log-btn {
+  position: absolute;
+  right: 30px;
+}
