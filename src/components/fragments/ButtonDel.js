@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { Button } from '@poool/junipero';
 
+const AuthStr = sessionStorage.getItem('Authorization');
+
 export default ({
   title = 'Title',
   className = 'btn-add',
@@ -17,6 +19,8 @@ export default ({
     axios.delete(`${url}/${data}`)
       .then(res => {
         console.log(res);
+      }, {
+        headers: { Authorization: AuthStr },
       })
       .catch((error) => {
         console.log(error);

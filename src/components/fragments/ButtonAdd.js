@@ -3,6 +3,10 @@ import axios from 'axios';
 
 import { Button } from '@poool/junipero';
 
+const AuthStr = sessionStorage.getItem('Authorization');
+
+const userId = sessionStorage.getItem('userId');
+
 export default ({
   title = 'Title',
   className = 'btn-add',
@@ -13,10 +17,12 @@ export default ({
 }) => {
 
   const send = () => {
-    axios.post(`${url}`, {
+    axios.post(`${url}${userId}`, {
       img: data.img,
       title: data.title,
       id_details: data.id_details,
+    }, {
+      headers: { Authorization: AuthStr },
     })
       .then(res => {
         console.log(res);
