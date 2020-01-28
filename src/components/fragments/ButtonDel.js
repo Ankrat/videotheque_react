@@ -19,7 +19,9 @@ export default ({
   const remove = () => {
     axios.delete(`${url}/${dataId}`, {
       headers: { Authorization: AuthStr },
-      user_id: userId,
+      data: {
+        user_id: userId,
+      },
     })
       .then(res => {
         console.log(res);
