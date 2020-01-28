@@ -57,7 +57,8 @@ export default (props) => {
               className="btn-add"
               reversed={true}
               type="danger"
-              data={items._id}
+              dataId={items._id}
+              userId={userId}
               url="http://localhost:8085/api/watchlist-mv"
               onClick={() => setState({
                 fetching: true,

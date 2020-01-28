@@ -10,14 +10,16 @@ export default ({
   className = 'btn-add',
   reversed = true,
   type = 'success',
-  data,
+  dataId,
+  userId,
   url,
   onClick = () => {},
 }) => {
 
   const remove = () => {
-    axios.delete(`${url}/${data}`, {
+    axios.delete(`${url}/${dataId}`, {
       headers: { Authorization: AuthStr },
+      user_id: userId,
     })
       .then(res => {
         console.log(res);
