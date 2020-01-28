@@ -24,27 +24,37 @@ export default () => {
 
   useEffect(() => {
     if (state.query !== undefined && state.query !== '') {
-      search(state.query, state.page);
-    }
-  }, [state.page, state.query]);
 
-  const search = (query, page) => {
+      let source = axios.CancelToken.source();
 
-    axios.get(`${url}query=${query}&page=${page}&include_adult=false`)
-      .then(response => {
-        if (response.status === 200) {
+      const loadData = async () => {
+        try {
+          const response = await axios.get(
+            `${url}query=${state.query}&page=${state.page}&include_adult=false`
+            , {
+              cancelToken: source.token,
+            });
           setState({
             ...state,
             get: response.data.results,
           });
-        } else {
-          throw new Error('Erreur');
+        } catch (e) {
+          if (axios.isCancel(e)) {
+            console.log('caught cancel');
+          } else {
+            throw e;
+          }
         }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+      };
+
+      loadData();
+
+      return () => {
+        source.cancel();
+      };
+
+    }
+  }, [state.page, state.query]);
 
   return (
 
@@ -66,7 +76,7 @@ export default () => {
       <ul>
         {
           state.get.map((elem, index) => (
-            <li key={index}>
+            <li key={`elem${index}`}>
               <Link to={`/details/movie/${elem.id}`}>
                 <Image src={ elem.poster_path ?
                   `${img}w92${elem.poster_path}` :

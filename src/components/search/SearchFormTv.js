@@ -20,27 +20,40 @@ export default () => {
     query: 'a',
     page: 1,
   });
+
   useEffect(() => {
     if (state.query !== undefined && state.query !== '') {
-      search(state.query, state.page);
-    }
-  }, [state.page, state.query]);
 
-  const search = (query, page) => {
+      let source = axios.CancelToken.source();
 
-    if (state.query !== undefined) {
-      axios.get(`${url}query=${query}&page=${page}`)
-        .then(response => {
+      const loadData = async () => {
+        try {
+          const response = await axios.get(
+            `${url}query=${state.query}&page=${state.page}&include_adult=false`
+            , {
+              cancelToken: source.token,
+            });
           setState({
             ...state,
             get: response.data.results,
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        } catch (e) {
+          if (axios.isCancel(e)) {
+            console.log('caught cancel');
+          } else {
+            throw e;
+          }
+        }
+      };
+
+      loadData();
+
+      return () => {
+        source.cancel();
+      };
+
     }
-  };
+  }, [state.page, state.query]);
 
   return (
 
