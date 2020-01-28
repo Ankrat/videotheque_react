@@ -1,3 +1,16 @@
 h1 {
   text-align: center;
 }
+.user-img {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+.log-btn {
+  display: flex!important;
+  align-items: center!important;
+  padding: 0 10px 0 !important;
+}
+.logout-btn {
+  padding: 5px 20px;
+}

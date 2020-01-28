@@ -14,5 +14,8 @@ ul {
 .redirect-log-btn {
   position: absolute;
   right: 30px;
-  top: 10%;
+  top: 95px;
+}
+.redirect-log-btn:hover {
+  cursor: pointer
 }
