@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { classNames } from '@poool/junipero';
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
@@ -18,7 +19,7 @@ const userId = sessionStorage.getItem('userId');
 
 export default (props) => {
   const [state, setState] = useState({
-    get: {},
+    films: [],
     fetching: true,
     delete: true,
   });
@@ -35,7 +36,7 @@ export default (props) => {
     })
       .then(response => {
         setState({
-          get: response.data,
+          films: response.data.data || [],
           fetching: false,
         });
       }).catch(err => {
@@ -46,12 +47,26 @@ export default (props) => {
   const render = () => {
     if (!state.fetching) {
       return (
-        state.get.data.map((items, index) => (
+        state.films.map((items, index) => (
           <li key={index}>
-            <Link to={`/details/movie/${items.id_details}`}>
+            <Link to={`/details/movie/${items.movie_id}`}>
               <Image src={`${img}w92${items.img}`} rounded />
               {items.title}
             </Link>
+            {console.log(items)}
+            <a
+              className={classNames(
+                'state',
+                `state-${items.status}`
+              )}
+            >{
+                items.status === 'to_see'
+                  ? 'To See'
+                  : items.status === 'in_progress'
+                    ? 'In Progress'
+                    : 'Done'
+              }
+            </a>
             <ButtonDel
               title="Delete"
               className="btn-add"
