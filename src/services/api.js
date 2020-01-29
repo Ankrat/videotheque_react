@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const AuthStr = sessionStorage.getItem('Authorization');
 const userId = sessionStorage.getItem('userId');
-const burl = 'http://localhost:8085/api';
+const burl = 'http://localhost:8085/api/';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const headers = {
 export default {
 
   updateState: () => {
-    return axios.put;
+    return axios.put(`${burl}watchlist-mv/`);
   },
 
 };

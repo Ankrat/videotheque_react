@@ -55,6 +55,7 @@ export default (props) => {
             </Link>
             {console.log(items)}
             <a
+              href="#"
               className={classNames(
                 'state',
                 `state-${items.status}`

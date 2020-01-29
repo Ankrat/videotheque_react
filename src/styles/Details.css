@@ -34,12 +34,14 @@
   cursor: pointer;
 }
 
-.state-to-see {
+.state-to_see {
   background-color: #5da0ff;
+  color: white;
 }
-.state-in-progress {
+.state-watching {
   background-color: #F5A622;
 }
-.state-done {
+.state-seen {
   background-color: #1FB790;
+  color: white;
 }
