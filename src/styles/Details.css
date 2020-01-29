@@ -26,3 +26,20 @@
 .side-overlay{
   left: auto!important;
 }
+
+.state {
+  margin: 0 20px;
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.state-to-see {
+  background-color: #5da0ff;
+}
+.state-in-progress {
+  background-color: #F5A622;
+}
+.state-done {
+  background-color: #1FB790;
+}
