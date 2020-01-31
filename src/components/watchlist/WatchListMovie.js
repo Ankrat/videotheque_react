@@ -3,7 +3,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { classNames } from '@poool/junipero';
+import { classNames,  Dropdown, DropdownToggle, DropdownMenu,
+  DropdownItem } from '@poool/junipero';
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
@@ -54,20 +55,48 @@ export default (props) => {
               {items.title}
             </Link>
             {console.log(items)}
-            <a
-              href="#"
-              className={classNames(
-                'state',
-                `state-${items.status}`
-              )}
-            >{
-                items.status === 'to_see'
-                  ? 'To See'
-                  : items.status === 'in_progress'
-                    ? 'In Progress'
-                    : 'Done'
-              }
-            </a>
+
+            <Dropdown>
+              <DropdownToggle
+                className={classNames(
+                  'state',
+                  `state-${items.status}`
+                )}
+              >
+                {
+                  items.status === 'to_see'
+                    ? 'To See'
+                    : items.status === 'watching'
+                      ? 'Watching'
+                      : 'Seen'
+                }
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem>
+                  <a>
+                    {
+                      items.status === 'to_see'
+                        ? 'Watching'
+                        : items.status === 'watching'
+                          ? 'To See'
+                          : 'To See'
+                    }
+                  </a>
+                </DropdownItem>
+                <DropdownItem>
+                  <a>
+                    {
+                      items.status === 'to_see'
+                        ? 'Seen'
+                        : items.status === 'watching'
+                          ? 'Seen'
+                          : 'Watching'
+                    }
+                  </a>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+
             <ButtonDel
               title="Delete"
               className="btn-add"
