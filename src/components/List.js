@@ -33,7 +33,15 @@ export default () => {
                 </Button>
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem><a>Parameter</a></DropdownItem>
+                <DropdownItem
+                  className="logout-btn"
+                >
+                  <Button
+                    reversed={true}
+                    type="primary"
+                  >Parameter
+                  </Button>
+                </DropdownItem>
                 <DropdownItem>
                   <Toggle
                     className="logout-btn"
