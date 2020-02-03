@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image } from 'react-bootstrap';
+import { Image, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { classNames,  Dropdown, DropdownToggle, DropdownMenu,
   DropdownItem } from '@poool/junipero';
@@ -23,13 +23,14 @@ export default (props) => {
     films: [],
     fetching: true,
     delete: true,
+    statusChange: false,
   });
 
   useEffect(() => {
     if (AuthStr !== null) {
       details();
     }
-  }, [state.delete]);
+  }, [state.statusChange, state.delete]);
 
   const details = () => {
     axios.get(`${url}${userId}`, {
@@ -45,6 +46,21 @@ export default (props) => {
       });
   };
 
+  const statusView = (_id, status) => {
+    axios.put(`${url}${_id}`, {
+      status: status,
+    },
+    { headers: { Authorization: AuthStr },
+    })
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+
+    setState({
+      ...state,
+      statusChange: !state.statusChange,
+    });
+  };
+
   const render = () => {
     if (!state.fetching) {
       return (
@@ -54,8 +70,6 @@ export default (props) => {
               <Image src={`${img}w92${items.img}`} rounded />
               {items.title}
             </Link>
-            {console.log(items)}
-
             <Dropdown>
               <DropdownToggle
                 className={classNames(
@@ -73,26 +87,25 @@ export default (props) => {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>
-                  <a>
-                    {
-                      items.status === 'to_see'
-                        ? 'Watching'
-                        : items.status === 'watching'
-                          ? 'To See'
-                          : 'To See'
-                    }
-                  </a>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'to_see') }
+                  >To See</Button>
                 </DropdownItem>
                 <DropdownItem>
-                  <a>
-                    {
-                      items.status === 'to_see'
-                        ? 'Seen'
-                        : items.status === 'watching'
-                          ? 'Seen'
-                          : 'Watching'
-                    }
-                  </a>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'watching') }
+                  >Watching</Button>
+                </DropdownItem>
+                <DropdownItem>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'seen') }
+                  >Seen</Button>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
