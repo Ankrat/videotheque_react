@@ -56,7 +56,11 @@ export default (props) => {
     },
     { headers: { Authorization: AuthStr },
     })
-      .then(res => console.log(res))
+      .then(res =>
+        setState({
+          ...state,
+          statusChange: !state.statusChange,
+        }))
       .catch(err => console.error(err));
 
     setState({
