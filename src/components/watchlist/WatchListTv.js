@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image } from 'react-bootstrap';
+import { Image, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import {
+  classNames,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from '@poool/junipero';
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
@@ -22,13 +28,14 @@ export default (props) => {
     get: {},
     fetching: true,
     delete: true,
+    statusChange: false,
   });
 
   useEffect(() => {
     if (AuthStr !== null) {
       details();
     }
-  }, [state.delete]);
+  }, [state.statusChange, state.delete]);
 
   const details = () => {
     axios.get(`${url}${userId}`, {
@@ -41,6 +48,21 @@ export default (props) => {
       }).catch(err => console.log(err));
   };
 
+  const statusView = (_id, status) => {
+    axios.put(`${url}${_id}`, {
+      status: status,
+    },
+    { headers: { Authorization: AuthStr },
+    })
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+
+    setState({
+      ...state,
+      statusChange: !state.statusChange,
+    });
+  };
+
   const render = () => {
     if (!state.fetching) {
       return (
@@ -50,6 +72,45 @@ export default (props) => {
               <Image src={`${img}w92${items.img}`} rounded />
               {items.title}
             </Link>
+            <Dropdown>
+              <DropdownToggle
+                className={classNames(
+                  'state',
+                  `state-${items.status}`
+                )}
+              >
+                {
+                  items.status === 'to_see'
+                    ? 'To See'
+                    : items.status === 'watching'
+                      ? 'Watching'
+                      : 'Seen'
+                }
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'to_see') }
+                  >To See</Button>
+                </DropdownItem>
+                <DropdownItem>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'watching') }
+                  >Watching</Button>
+                </DropdownItem>
+                <DropdownItem>
+                  <Button
+                    variant="link"
+                    className="state"
+                    onClick={ () => statusView(items._id, 'seen') }
+                  >Seen</Button>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
             <ButtonDel
               title="Delete"
               className="btn-add"

@@ -3,7 +3,11 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { classNames,  Dropdown, DropdownToggle, DropdownMenu,
+import {
+  classNames,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
   DropdownItem } from '@poool/junipero';
 
 import '../../styles/Details.css';
