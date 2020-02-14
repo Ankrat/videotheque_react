@@ -12,15 +12,7 @@ import {
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
-
-// const apiKey = '?api_key=18cb3ed1e51594213b505970b2c9a0bf&language=en-US';
-const url = 'http://localhost:8085/api/watchlist-mv/';
-
-const img = 'https://image.tmdb.org/t/p/';
-
-const AuthStr = sessionStorage.getItem('Authorization');
-
-const userId = sessionStorage.getItem('userId');
+import { AuthStr, userId, urlApi, img } from '../../services/content';
 
 export default (props) => {
   const [state, setState] = useState({
@@ -37,7 +29,7 @@ export default (props) => {
   }, [state.statusChange, state.delete]);
 
   const details = () => {
-    axios.get(`${url}${userId}`, {
+    axios.get(urlApi(userId).movie, {
       headers: { Authorization: AuthStr },
     })
       .then(response => {
@@ -51,7 +43,7 @@ export default (props) => {
   };
 
   const statusView = (_id, status) => {
-    axios.put(`${url}${_id}`, {
+    axios.put(urlApi(_id).movie, {
       status: status,
     },
     { headers: { Authorization: AuthStr },
@@ -73,6 +65,7 @@ export default (props) => {
     if (!state.fetching) {
       return (
         state.films.map((items, index) => (
+
           <li key={index}>
             <Link to={`/details/movie/${items.movie_id}`}>
               <Image src={`${img}w92${items.img}`} rounded />
@@ -123,9 +116,7 @@ export default (props) => {
               className="btn-add"
               reversed={true}
               type="danger"
-              dataId={items._id}
-              userId={userId}
-              url="http://localhost:8085/api/watchlist-mv"
+              url={urlApi(items._id).movie}
               onClick={() => setState({
                 fetching: true,
                 delete: !state.delete,

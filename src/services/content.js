@@ -1,3 +1,10 @@
+export const img = 'https://image.tmdb.org/t/p/';
+
+export const AuthStr = sessionStorage.getItem('Authorization');
+
+export const userId = sessionStorage.getItem('userId');
+
+
 export const url = (
   id,
   query = 'a',
@@ -22,10 +29,9 @@ export const url = (
   };
 };
 
-
-
-export const img = 'https://image.tmdb.org/t/p/';
-
-export const AuthStr = sessionStorage.getItem('Authorization');
-
-export const userId = sessionStorage.getItem('userId');
+export const urlApi = (id = '') => {
+  return {
+    movie: `http://localhost:8085/api/watchlist-mv/${id}`,
+    tv: `http://localhost:8085/api/watchlist-tv/${id}`,
+  };
+};

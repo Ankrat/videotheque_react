@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@poool/junipero';
 
-const AuthStr = sessionStorage.getItem('Authorization');
-
-const userId = sessionStorage.getItem('userId');
+import { AuthStr, userId } from '../../services/content';
 
 export default ({
   title = 'Title',
@@ -23,9 +21,8 @@ export default ({
 
     try {
       const response = await axios.post(`${url}${userId}`, {
-        img: data.img,
-        title: data.title,
         id_details: data.id_details,
+        seasons_status: data.number_of_seasons,
       }, {
         headers: { Authorization: AuthStr },
       });

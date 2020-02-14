@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Button } from '@poool/junipero';
 
-const AuthStr = sessionStorage.getItem('Authorization');
+import { AuthStr } from '../../services/content';
 
 export default ({
   title = 'Title',
@@ -17,11 +17,8 @@ export default ({
 }) => {
 
   const remove = () => {
-    axios.delete(`${url}/${dataId}`, {
+    axios.delete(url, {
       headers: { Authorization: AuthStr },
-      data: {
-        user_id: userId,
-      },
     })
       .then(res => {
         console.log(res);
