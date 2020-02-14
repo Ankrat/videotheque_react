@@ -8,6 +8,7 @@ import { Button } from '@poool/junipero';
 
 import '../../styles/Details.css';
 import { url, img } from '../../services/content';
+import API from '../../services/api';
 
 export default (props) => {
   const [state, setState] = useState({
@@ -21,20 +22,12 @@ export default (props) => {
   });
 
   useEffect(() => {
-    details(props.match.params.id);
+    API.details(
+      url(props.match.params.id).id_tv,
+      setState
+    );
   }, [props.match.params.id]);
 
-  const details = (id) => {
-    axios.get(url(id).id_tv)
-      .then(response => {
-        setState({
-          get: response.data,
-          genres: response.data.genres,
-          country: response.data.origin_country,
-          seasons: response.data.seasons,
-          fetching: false });
-      }).catch(err => console.log(err));
-  };
 
 
   return (

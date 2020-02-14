@@ -33,6 +33,18 @@ export default {
     }
   },
 
+  details: async (url, setState) => {
+    await axios.get(url)
+      .then(response => {
+        setState({
+          get: response.data,
+          genres: response.data.genres,
+          country: response.data.production_countries,
+          seasons: response.data.seasons,
+          fetching: false });
+      }).catch(err => console.log(err));
+  },
+
   updateState: () => {
     return axios.put(`${burl}watchlist-mv/`);
   },
