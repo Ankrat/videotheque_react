@@ -1,13 +1,13 @@
-import { url, AuthStr } from './content';
+import { AuthStr } from './content';
 
 import axios from 'axios';
 const burl = 'http://localhost:8085/api/';
 
-
-
 const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': AuthStr,
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': AuthStr,
+  },
 };
 
 
@@ -47,6 +47,39 @@ export default {
 
   updateState: () => {
     return axios.put(`${burl}watchlist-mv/`);
+  },
+
+  send: async (url, data, state, setState) => {
+
+    try {
+      const response = await axios.post(url, {
+        id_details: data.id_details,
+        seasons_status: data.number_of_seasons,
+      }, headers);
+      if (response.data.code === 3) {
+        setState({
+          ...state,
+          err_3: true,
+        });
+      }
+    } catch (e) {
+      if (e.response.data.code === 3) {
+        setState({
+          ...state,
+          err_3: true,
+        });
+      }
+    }
+  },
+
+  remove: (url) => {
+    axios.delete(url, headers)
+      .then(res => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
 };

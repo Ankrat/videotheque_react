@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
 import { Button } from '@poool/junipero';
 
-import { AuthStr, userId } from '../../services/content';
+import API from '../../services/api';
 
 export default ({
   title = 'Title',
@@ -17,31 +17,6 @@ export default ({
     err_3: false,
   });
 
-  const send = async () => {
-
-    try {
-      const response = await axios.post(`${url}${userId}`, {
-        id_details: data.id_details,
-        seasons_status: data.number_of_seasons,
-      }, {
-        headers: { Authorization: AuthStr },
-      });
-      if (response.data.code === 3) {
-        setState({
-          ...state,
-          err_3: true,
-        });
-      }
-    } catch (e) {
-      if (e.response.data.code === 3) {
-        setState({
-          ...state,
-          err_3: true,
-        });
-      }
-    }
-  };
-
   return (
     <>
       <Button
@@ -54,7 +29,7 @@ export default ({
             ...state,
             err_3: false,
           });
-          send();
+          API.send(url, data, state, setState);
         }}
       >{ title }
       </Button>

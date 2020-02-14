@@ -1,9 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 
 import { Button } from '@poool/junipero';
-
-import { AuthStr } from '../../services/content';
+import API from '../../services/api';
 
 export default ({
   title = 'Title',
@@ -16,18 +14,6 @@ export default ({
   onClick = () => {},
 }) => {
 
-  const remove = () => {
-    axios.delete(url, {
-      headers: { Authorization: AuthStr },
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <Button
       className={className}
@@ -35,7 +21,7 @@ export default ({
       type={type}
       onClick={e => {
         e.preventDefault();
-        remove();
+        API.remove(url);
         onClick();
       }}
     >{ title }</Button>

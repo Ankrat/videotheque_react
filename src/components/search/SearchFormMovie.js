@@ -8,7 +8,7 @@ import { TextField } from '@poool/junipero';
 import '../../styles/Search.css';
 import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
-import { url, img } from '../../services/content';
+import { url, img, urlApi, userId } from '../../services/content';
 import API from '../../services/api';
 
 
@@ -73,7 +73,7 @@ export default () => {
                 className="btn-add"
                 reversed={true}
                 type="success"
-                url="http://localhost:8085/api/watchlist-mv/"
+                url={urlApi(userId).movie}
                 data={{
                   img: elem.poster_path,
                   title: elem.title,
