@@ -28,8 +28,6 @@ export default (props) => {
     );
   }, [props.match.params.id]);
 
-
-
   return (
 
     <div
