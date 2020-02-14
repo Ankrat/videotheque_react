@@ -57,17 +57,22 @@ export default () => {
         }}
         autoFocus
       />
-      <ul>
+      <ul className="ul-data">
         {
           state.get.map((elem, index) => (
-            <li key={`elem${index}`}>
-              <Link to={`/details/movie/${elem.id}`}>
-                <Image src={ elem.poster_path ?
-                  `${img}w92${elem.poster_path}` :
-                  noimg } rounded />
-                {elem.title}
-              </Link>
-              { elem.adult ? '🔞' : '' }
+            <li key={`elem${index}`} className="li-data">
+              <div className="film">
+                <Link to={`/details/movie/${elem.id}`}>
+                  <Image
+                    className="img-data"
+                    src={ elem.poster_path
+                      ? `${img}w92${elem.poster_path}`
+                      : noimg }
+                    rounded />
+                  <h6>{elem.title}</h6>
+                </Link>
+                { elem.adult ? '🔞' : '' }
+              </div>
               <ButtonAdd
                 title="Add to WatchList"
                 className="btn-add"

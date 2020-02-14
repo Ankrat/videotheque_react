@@ -1,15 +1,39 @@
 h2 {
   text-align: center;
 }
-ul {
+.ul-data {
   background-color: #FCFCFC;
+  width: max-content;
 }
+
+.li-data {
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  border: solid 2px #E3EBF2;
+  border-radius: 10px;
+  width: auto;
+}
+
+h6 {
+  padding: 10px 0 0 10px;
+}
+.film {
+  display: flex;
+  flex-direction: column;
+}
+
+.img-data {
+  margin: 0 10px;
+}
+
 .tabs-titles{
   display: flex!important;
   justify-content: center;
 }
 .btn-add {
   margin-left: 10px;
+  align-self: start;
 }
 .redirect-log-btn {
   position: absolute;
