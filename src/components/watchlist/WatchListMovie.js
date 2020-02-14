@@ -12,7 +12,8 @@ import {
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
-import { AuthStr, userId, urlApi, img } from '../../services/content';
+import { AuthStr, userId, urlApi, img, url} from '../../services/content';
+import API from '../../services/api';
 
 export default (props) => {
   const [state, setState] = useState({
@@ -24,23 +25,15 @@ export default (props) => {
 
   useEffect(() => {
     if (AuthStr !== null) {
-      details();
+      API.getIdItems(
+        urlApi(userId).movie,
+        state,
+        setState,
+        url
+      );
     }
   }, [state.statusChange, state.delete]);
 
-  const details = () => {
-    axios.get(urlApi(userId).movie, {
-      headers: { Authorization: AuthStr },
-    })
-      .then(response => {
-        setState({
-          films: response.data.data || [],
-          fetching: false,
-        });
-      }).catch(err => {
-        console.log(err);
-      });
-  };
 
   const statusView = (_id, status) => {
     axios.put(urlApi(_id).movie, {

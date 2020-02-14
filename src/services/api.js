@@ -45,6 +45,22 @@ export default {
       }).catch(err => console.log(err));
   },
 
+  getIdItems: (urlApi, state, setState, url) => {
+    axios.get(urlApi, {
+      headers: { Authorization: AuthStr },
+    })
+      .then(response => {
+
+        const data_id = response.data.data || [];
+        data_id.map(items => {
+          details(url(items.movie_id).id_movie);
+        });
+      }).catch(err => {
+        console.log(err);
+      });
+  },
+
+
   updateState: () => {
     return axios.put(`${burl}watchlist-mv/`);
   },
