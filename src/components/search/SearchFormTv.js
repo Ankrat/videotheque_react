@@ -9,6 +9,7 @@ import '../../styles/Search.css';
 import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
 import { url, img } from '../../services/content';
+import API from '../../services/api';
 
 
 export default () => {
@@ -23,27 +24,12 @@ export default () => {
 
       let source = axios.CancelToken.source();
 
-      const loadData = async () => {
-        try {
-          const response = await axios.get(
-            url(0, state.query, state.page).query_tv,
-            {
-              cancelToken: source.token,
-            });
-          setState({
-            ...state,
-            get: response.data.results,
-          });
-        } catch (e) {
-          if (axios.isCancel(e)) {
-            console.log('caught cancel');
-          } else {
-            throw e;
-          }
-        }
-      };
-
-      loadData();
+      API.loadData(
+        url(0, state.query, state.page).query_tv,
+        state,
+        setState,
+        source
+      );
 
       return () => {
         source.cancel();
