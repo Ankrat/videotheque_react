@@ -6,10 +6,7 @@ import { Button } from '@poool/junipero';
 
 
 import '../../styles/Details.css';
-
-
-const url = 'https://api.themoviedb.org/3/movie/';
-const img = 'https://image.tmdb.org/t/p/';
+import { url, img } from '../../services/content';
 
 
 export default (props) => {
@@ -25,7 +22,7 @@ export default (props) => {
   }, [props.match.params.id]);
 
   const details = (id) => {
-    axios.get(`${url}${id}?api_key=18cb3ed1e51594213b505970b2c9a0bf&language=fr`)
+    axios.get(url(id).id_movie)
       .then(response => {
         setState({
           get: response.data,

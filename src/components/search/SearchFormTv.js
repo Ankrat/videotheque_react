@@ -8,11 +8,8 @@ import { TextField } from '@poool/junipero';
 import '../../styles/Search.css';
 import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
+import { url, img } from '../../services/content';
 
-
-const url = 'https://api.themoviedb.org/3/search/tv?api_key=' +
-            '18cb3ed1e51594213b505970b2c9a0bf&language=en-US&';
-const img = 'https://image.tmdb.org/t/p/';
 
 export default () => {
   const [state, setState] = useState({
@@ -29,8 +26,8 @@ export default () => {
       const loadData = async () => {
         try {
           const response = await axios.get(
-            `${url}query=${state.query}&page=${state.page}&include_adult=false`
-            , {
+            url(0, state.query, state.page).query_tv,
+            {
               cancelToken: source.token,
             });
           setState({
