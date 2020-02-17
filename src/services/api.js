@@ -45,33 +45,18 @@ export default {
       }).catch(err => console.log(err));
   },
 
-  getIdItems: async (urlApi, state, setState, url) => {
-    await axios.get(urlApi, {
+  getIdItems: (urlApi, state, setState) => {
+    axios.get(urlApi, {
       headers: { Authorization: AuthStr },
     })
       .then(response => {
-
-        const data_id = response.data.data || [];
-
-        Promise.all(
-          data_id.map(items => {
-
-            axios.get(url(items.movie_id).id_movie)
-              .then(response => {
-                response.data.status_view = items.status;
-                response.data._id = items._id;
-                
-                state.films.push(response.data);
-                setState({
-                  ...state,
-                  fetching: false,
-                });
-              }).catch(err => console.log('err', err));
-          })
-        );
-
+        setState({
+          ...state,
+          films: response.data.data,
+          fetching: false,
+        });
       }).catch(err => {
-        console.log('err', err);
+        console.log(err);
       });
   },
 
@@ -84,8 +69,9 @@ export default {
 
     try {
       const response = await axios.post(url, {
+        title: data.title,
+        poster_path: data.poster_path,
         id_details: data.id_details,
-        seasons_status: data.number_of_seasons,
       }, headers);
       if (response.data.code === 3) {
         setState({

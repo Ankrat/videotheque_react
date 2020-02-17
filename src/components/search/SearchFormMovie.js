@@ -80,7 +80,7 @@ export default () => {
                 type="success"
                 url={urlApi(userId).movie}
                 data={{
-                  img: elem.poster_path,
+                  poster_path: elem.poster_path,
                   title: elem.title,
                   id_details: elem.id,
                 }}

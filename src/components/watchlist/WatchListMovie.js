@@ -12,7 +12,7 @@ import {
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
-import { AuthStr, userId, urlApi, img, url} from '../../services/content';
+import { AuthStr, userId, urlApi, img} from '../../services/content';
 import API from '../../services/api';
 
 export default (props) => {
@@ -22,14 +22,13 @@ export default (props) => {
     delete: true,
     statusChange: false,
   });
-
+console.log(state.films);
   useEffect(() => {
     if (AuthStr !== null) {
       API.getIdItems(
         urlApi(userId).movie,
         state,
-        setState,
-        url
+        setState
       );
     }
   }, [state.statusChange, state.delete]);
@@ -62,21 +61,21 @@ export default (props) => {
         ? (
           state.films.map((items, index) => (
             <li key={index}>
-              <Link to={`/details/movie/${items.id}`}>
-                <Image src={`${img}w92${items.poster_path}`} rounded />
-                {items.original_title}
+              <Link to={`/details/movie/${items.movie.id_details}`}>
+                <Image src={`${img}w92${items.movie.poster_path}`} rounded />
+                {items.movie.title}
               </Link>
               <Dropdown>
                 <DropdownToggle
                   className={classNames(
                     'state',
-                    `state-${items.status_view}`
+                    `state-${items.status}`
                   )}
                 >
                   {
-                    items.status_view === 'to_see'
+                    items.status === 'to_see'
                       ? 'To See'
-                      : items.status_view === 'watching'
+                      : items.status === 'watching'
                         ? 'Watching'
                         : 'Seen'
                   }
