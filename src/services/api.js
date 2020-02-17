@@ -45,18 +45,33 @@ export default {
       }).catch(err => console.log(err));
   },
 
-  getIdItems: (urlApi, state, setState, url) => {
-    axios.get(urlApi, {
+  getIdItems: async (urlApi, state, setState, url) => {
+    await axios.get(urlApi, {
       headers: { Authorization: AuthStr },
     })
       .then(response => {
 
         const data_id = response.data.data || [];
-        data_id.map(items => {
-          details(url(items.movie_id).id_movie);
-        });
+
+        Promise.all(
+          data_id.map(items => {
+
+            axios.get(url(items.movie_id).id_movie)
+              .then(response => {
+                response.data.status_view = items.status;
+                response.data._id = items._id;
+                
+                state.films.push(response.data);
+                setState({
+                  ...state,
+                  fetching: false,
+                });
+              }).catch(err => console.log('err', err));
+          })
+        );
+
       }).catch(err => {
-        console.log(err);
+        console.log('err', err);
       });
   },
 

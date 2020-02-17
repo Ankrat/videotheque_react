@@ -54,76 +54,79 @@ export default (props) => {
     });
   };
 
-  const render = () => {
-    if (!state.fetching) {
-      return (
-        state.films.map((items, index) => (
-
-          <li key={index}>
-            <Link to={`/details/movie/${items.movie_id}`}>
-              <Image src={`${img}w92${items.img}`} rounded />
-              {items.title}
-            </Link>
-            <Dropdown>
-              <DropdownToggle
-                className={classNames(
-                  'state',
-                  `state-${items.status}`
-                )}
-              >
-                {
-                  items.status === 'to_see'
-                    ? 'To See'
-                    : items.status === 'watching'
-                      ? 'Watching'
-                      : 'Seen'
-                }
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'to_see') }
-                  >To See</Button>
-                </DropdownItem>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'watching') }
-                  >Watching</Button>
-                </DropdownItem>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'seen') }
-                  >Seen</Button>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-
-            <ButtonDel
-              title="Delete"
-              className="btn-add"
-              reversed={true}
-              type="danger"
-              url={urlApi(items._id).movie}
-              onClick={() => setState({
-                fetching: true,
-                delete: !state.delete,
-              })}
-            />
-          </li>
-        ))
-      );
-    }
-  };
 
   return (
-    <ul>{
-      render()
-    }</ul>
+
+    <ul>
+      {!state.fetching
+        ? (
+          state.films.map((items, index) => (
+            <li key={index}>
+              <Link to={`/details/movie/${items.id}`}>
+                <Image src={`${img}w92${items.poster_path}`} rounded />
+                {items.original_title}
+              </Link>
+              <Dropdown>
+                <DropdownToggle
+                  className={classNames(
+                    'state',
+                    `state-${items.status_view}`
+                  )}
+                >
+                  {
+                    items.status_view === 'to_see'
+                      ? 'To See'
+                      : items.status_view === 'watching'
+                        ? 'Watching'
+                        : 'Seen'
+                  }
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'to_see') }
+                    >To See</Button>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'watching') }
+                    >Watching</Button>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'seen') }
+                    >Seen</Button>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+
+              <ButtonDel
+                title="Delete"
+                className="btn-add"
+                reversed={true}
+                type="danger"
+                url={urlApi(items._id).movie}
+                onClick={() => setState({
+                  fetching: true,
+                  delete: !state.delete,
+                })}
+              />
+            </li>
+
+          ))
+        ) : (
+          <>
+            <p>nope</p>
+          </>
+        )
+      }
+    </ul>
+
   );
 };
