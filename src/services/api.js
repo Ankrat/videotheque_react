@@ -20,9 +20,12 @@ export default {
         {
           cancelToken: source.token,
         });
+
       setState({
         ...state,
         get: response.data.results,
+        current_page: response.data.page,
+        total_pages: response.data.total_pages,
       });
     } catch (e) {
       if (axios.isCancel(e)) {

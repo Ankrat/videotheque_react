@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image } from 'react-bootstrap';
+import { Image, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextField } from '@poool/junipero';
 
@@ -14,23 +14,25 @@ import API from '../../services/api';
 
 export default () => {
 
-  const [user, setUser] = useState(undefined);
+  // const [user, setUser] = useState(undefined);
 
   const [state, setState] = useState({
     get: [],
     query: 'a',
     page: 1,
+    current_page: 1,
+    total_pages: 5,
   });
 
   useEffect(() => {
-    API.getUser(urlApi(userId).user, setUser);
+    // API.getUser(urlApi(userId).user, setUser);
 
-    if (state.query !== undefined && state.query !== '' && user !== undefined) {
+    if (state.query !== undefined && state.query !== '') {
 
       let source = axios.CancelToken.source();
 
       API.loadData(
-        url(0, state.query, state.page, user.adult).query_movie,
+        url(0, state.query, state.page).query_movie,
         state,
         setState,
         source
@@ -43,6 +45,55 @@ export default () => {
 
     }
   }, [state.page, state.query]);
+
+  const page = () => {
+
+    return (
+      <div>
+        <Pagination>
+          <Pagination.Prev
+            onClick={() => {
+              if (state.page === 1) {
+                return;
+              }
+              setState({
+                ...state,
+                page: (state.page - 1),
+              });
+            }}
+          />
+          <Pagination.Item
+            onClick={() => setState({
+              ...state,
+              page: 1,
+            })}
+          >{1}</Pagination.Item>
+          <Pagination.Ellipsis disabled/>
+
+          <Pagination.Item active>{state.current_page}</Pagination.Item>
+
+          <Pagination.Ellipsis disabled/>
+          <Pagination.Item
+            onClick={() => setState({
+              ...state,
+              page: state.total_pages,
+            })}
+          >{state.total_pages}</Pagination.Item>
+          <Pagination.Next
+            onClick={() => {
+              if (state.page === state.total_pages) {
+                return;
+              }
+              setState({
+                ...state,
+                page: (state.page + 1),
+              });
+            }}
+          />
+        </Pagination>
+      </div>
+    );
+  };
 
   return (
 
@@ -61,6 +112,7 @@ export default () => {
         }}
         autoFocus
       />
+      { page() }
       <ul className="ul-data">
         {
           state.get.map((elem, index) => (
@@ -93,6 +145,7 @@ export default () => {
           ))
         }
       </ul>
+      { page() }
     </>
 
   );

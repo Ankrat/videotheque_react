@@ -43,3 +43,7 @@ h6 {
 .redirect-log-btn:hover {
   cursor: pointer
 }
+.pagination {
+  justify-content: center;
+  margin: 10px 0;
+}
