@@ -22,7 +22,7 @@ export default (props) => {
     delete: true,
     statusChange: false,
   });
-console.log(state.films);
+
   useEffect(() => {
     if (AuthStr !== null) {
       API.getIdItems(

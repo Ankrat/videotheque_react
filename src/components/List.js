@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import axios from 'axios';
+import { urlApi, userId, AuthStr } from '../services/content';
+import API from '../services/api';
+
 import {
   Tabs, Tab, Button,
   Dropdown, DropdownToggle, DropdownMenu,
@@ -10,16 +15,31 @@ import WatchListMovie from './watchlist/WatchListMovie';
 import WatchListTv from './watchlist/WatchListTv';
 import userImg from '../styles/img/userImg.png';
 
-const AuthStr = sessionStorage.getItem('Authorization');
 const userName = sessionStorage.getItem('userName');
 // const userImg = sessionStorage.getItem('userImg');
 
+
 export default () => {
+
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    API.getUser(urlApi(userId).user, setUser);
+  }, []);
+
+
+  const adultUpdate = async (bool) => {
+    await axios.put(urlApi(userId).user, {
+      adult: bool,
+    }, {
+      headers: { Authorization: AuthStr },
+    });
+  };
 
   return (
     <>
       <h1>WatchList</h1>
-      { AuthStr ?
+      { AuthStr && user ?
         (
           <div className="redirect-log-btn">
             <Dropdown theme="none" placement="bottom-end">
@@ -56,6 +76,17 @@ export default () => {
                     theme="none"
                     uncheckedLabel="Dark mode"
                     checkedLabel="Dark mode"
+                  />
+                </DropdownItem>
+                <DropdownItem>
+                  <Toggle
+                    className="logout-btn"
+                    theme="none"
+                    uncheckedLabel="Adult"
+                    checkedLabel="Adult"
+                    checked={user.adult || false}
+                    onChange={(value, valid) =>
+                      adultUpdate(value.checked)}
                   />
                 </DropdownItem>
                 <DropdownItem

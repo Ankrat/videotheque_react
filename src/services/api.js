@@ -99,4 +99,11 @@ export default {
       });
   },
 
+
+  getUser: async (url, setUser) => {
+    await axios.get(url, {
+      headers: { Authorization: AuthStr },
+    }).then( res => setUser(res.data.user));
+  },
+
 };

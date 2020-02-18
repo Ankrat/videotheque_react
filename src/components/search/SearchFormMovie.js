@@ -14,6 +14,8 @@ import API from '../../services/api';
 
 export default () => {
 
+  const [user, setUser] = useState(undefined);
+
   const [state, setState] = useState({
     get: [],
     query: 'a',
@@ -21,12 +23,14 @@ export default () => {
   });
 
   useEffect(() => {
-    if (state.query !== undefined && state.query !== '') {
+    API.getUser(urlApi(userId).user, setUser);
+
+    if (state.query !== undefined && state.query !== '' && user !== undefined) {
 
       let source = axios.CancelToken.source();
 
       API.loadData(
-        url(0, state.query, state.page).query_movie,
+        url(0, state.query, state.page, user.adult).query_movie,
         state,
         setState,
         source

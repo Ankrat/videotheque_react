@@ -9,8 +9,8 @@ export const url = (
   id,
   query = 'a',
   page = '1',
-  langue = 'en-US',
-  adult = 'false'
+  adult = 'false',
+  langue = 'EN-us'
 ) => {
   return {
     query_movie: `https://api.themoviedb.org/3/search/movie` +
@@ -33,5 +33,6 @@ export const urlApi = (id = '') => {
   return {
     movie: `http://localhost:8085/api/watchlist-mv/${id}`,
     tv: `http://localhost:8085/api/watchlist-tv/${id}`,
+    user: `http://localhost:8085/auth/update/${id}`,
   };
 };
