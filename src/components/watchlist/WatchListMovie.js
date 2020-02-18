@@ -94,63 +94,65 @@ export default (props) => {
                     <h6>{items.movie.title}</h6>
                   </Link>
                 </div>
-                <Dropdown>
-                  <DropdownToggle
-                    className={classNames(
-                      'state',
-                      `state-${items.status}`
-                    )}
-                  >
-                    {
-                      items.status === 'to_see'
-                        ? 'To See'
-                        : items.status === 'watching'
-                          ? 'Watching'
-                          : 'Seen'
-                    }
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem>
-                      <Button
-                        variant="link"
-                        className="state"
-                        onClick={ () => statusView(items._id, 'to_see') }
-                      >To See</Button>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Button
-                        variant="link"
-                        className="state"
-                        onClick={ () => statusView(items._id, 'watching') }
-                      >Watching</Button>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Button
-                        variant="link"
-                        className="state"
-                        onClick={ () => statusView(items._id, 'seen') }
-                      >Seen</Button>
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                <div className="control">
+                  <Dropdown>
+                    <DropdownToggle
+                      className={classNames(
+                        'state',
+                        `state-${items.status}`
+                      )}
+                    >
+                      {
+                        items.status === 'to_see'
+                          ? 'To See'
+                          : items.status === 'watching'
+                            ? 'Watching'
+                            : 'Seen'
+                      }
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem>
+                        <Button
+                          variant="link"
+                          className="state"
+                          onClick={ () => statusView(items._id, 'to_see') }
+                        >To See</Button>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Button
+                          variant="link"
+                          className="state"
+                          onClick={ () => statusView(items._id, 'watching') }
+                        >Watching</Button>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Button
+                          variant="link"
+                          className="state"
+                          onClick={ () => statusView(items._id, 'seen') }
+                        >Seen</Button>
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
 
-                <ButtonDel
-                  title="Delete"
-                  className="btn-add"
-                  reversed={true}
-                  type="danger"
-                  url={urlApi(items._id).movie}
-                  onClick={() => setState({
-                    fetching: true,
-                    delete: !state.delete,
-                  })}
-                />
+                  <ButtonDel
+                    title="Delete"
+                    className="btn-add"
+                    reversed={true}
+                    type="danger"
+                    url={urlApi(items._id).movie}
+                    onClick={() => setState({
+                      fetching: true,
+                      delete: !state.delete,
+                    })}
+                  />
+                </div>
               </li>
 
             ))
           ) : (
             <>
-              <p>nope</p>
+              <h4>No data or No connected ...</h4>
             </>
           )
         }

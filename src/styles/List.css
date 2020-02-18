@@ -1,6 +1,9 @@
 h1 {
   text-align: center;
 }
+h4 {
+  text-align: center;
+}
 .user-img {
   width: 30px;
   height: 30px;
@@ -13,4 +16,10 @@ h1 {
 }
 .logout-btn {
   padding: 5px 20px;
+}
+.control {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: space-between;
 }

@@ -10,6 +10,7 @@ h2 {
   padding: 10px;
   margin: 10px;
   display: flex;
+  justify-content: space-between;
   border: solid 2px #E3EBF2;
   border-radius: 10px;
   width: auto;
