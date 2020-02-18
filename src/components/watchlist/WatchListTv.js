@@ -53,61 +53,65 @@ export default (props) => {
     if (!state.fetching) {
       return (
         state.get.map((items, index) => (
-          <li key={index}>
-            <Link to={`/details/tv/${items.tv.id_details}`}>
-              <Image src={`${img}w92${items.tv.poster_path}`} rounded />
-              {items.tv.title}
-            </Link>
-            <Dropdown>
-              <DropdownToggle
-                className={classNames(
-                  'state',
-                  `state-${items.general_status}`
-                )}
-              >
-                {
-                  items.general_status === 'to_see'
-                    ? 'To See'
-                    : items.general_status === 'watching'
-                      ? 'Watching'
-                      : 'Seen'
-                }
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'to_see') }
-                  >To See</Button>
-                </DropdownItem>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'watching') }
-                  >Watching</Button>
-                </DropdownItem>
-                <DropdownItem>
-                  <Button
-                    variant="link"
-                    className="state"
-                    onClick={ () => statusView(items._id, 'seen') }
-                  >Seen</Button>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-            <ButtonDel
-              title="Delete"
-              className="btn-add"
-              reversed={true}
-              type="danger"
-              url={urlApi(items._id).tv}
-              onClick={() => setState({
-                fetching: true,
-                delete: !state.delete,
-              })}
-            />
+          <li key={index} className="li-data">
+            <div className="film">
+              <Link to={`/details/tv/${items.tv.id_details}`}>
+                <Image src={`${img}w92${items.tv.poster_path}`} rounded />
+                <h6>{items.tv.title}</h6>
+              </Link>
+            </div>
+            <div className="control">
+              <Dropdown>
+                <DropdownToggle
+                  className={classNames(
+                    'state',
+                    `state-${items.general_status}`
+                  )}
+                >
+                  {
+                    items.general_status === 'to_see'
+                      ? 'To See'
+                      : items.general_status === 'watching'
+                        ? 'Watching'
+                        : 'Seen'
+                  }
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'to_see') }
+                    >To See</Button>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'watching') }
+                    >Watching</Button>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Button
+                      variant="link"
+                      className="state"
+                      onClick={ () => statusView(items._id, 'seen') }
+                    >Seen</Button>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <ButtonDel
+                title="Delete"
+                className="btn-add"
+                reversed={true}
+                type="danger"
+                url={urlApi(items._id).tv}
+                onClick={() => setState({
+                  fetching: true,
+                  delete: !state.delete,
+                })}
+              />
+            </div>
           </li>
         ))
       );
@@ -115,7 +119,7 @@ export default (props) => {
   };
 
   return (
-    <ul>{
+    <ul className="ul-data">{
       render()
     }</ul>
   );
