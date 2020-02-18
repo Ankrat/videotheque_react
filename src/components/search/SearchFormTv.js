@@ -8,8 +8,8 @@ import { TextField } from '@poool/junipero';
 import '../../styles/Search.css';
 import noimg from '../../styles/img/noimg.png';
 import ButtonAdd from '../fragments/ButtonAdd';
-import { url, img } from '../../services/content';
 import API from '../../services/api';
+import { url, img, urlApi, userId } from '../../services/content';
 
 
 export default () => {
@@ -55,7 +55,7 @@ export default () => {
       <ul className="ul-data">
         {
           state.get.map((elem, index) => (
-            <li key={index} className="li-data">
+            <li key={index} className="li-data">{console.log(elem)}
               <div className="film">
                 <Link to={`/details/tv/${elem.id}`}>
                   <Image src={ elem.poster_path ?
@@ -69,9 +69,9 @@ export default () => {
                 className="btn-add"
                 reversed={true}
                 type="success"
-                url="http://localhost:8085/api/watchlist-tv/"
+                url={urlApi(userId).tv}
                 data={{
-                  img: elem.poster_path,
+                  poster_path: elem.poster_path,
                   title: elem.name,
                   id_details: elem.id,
                 }}

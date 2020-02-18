@@ -13,10 +13,11 @@ import {
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
 import { AuthStr, userId, urlApi, img } from '../../services/content';
+import API from '../../services/api';
 
 export default (props) => {
   const [state, setState] = useState({
-    get: {},
+    get: [],
     fetching: true,
     delete: true,
     statusChange: false,
@@ -24,24 +25,17 @@ export default (props) => {
 
   useEffect(() => {
     if (AuthStr !== null) {
-      details();
+      API.getIdItems(
+        urlApi(userId).tv,
+        state,
+        setState
+      );
     }
   }, [state.statusChange, state.delete]);
 
-  const details = () => {
-    axios.get(urlApi(userId).tv, {
-      headers: { Authorization: AuthStr },
-    })
-      .then(response => {
-        setState({
-          get: response.data,
-          fetching: false });
-      }).catch(err => console.log(err));
-  };
-
   const statusView = (_id, status) => {
     axios.put(urlApi(_id).tv, {
-      status: status,
+      general_status: status,
     },
     { headers: { Authorization: AuthStr },
     })
@@ -58,23 +52,23 @@ export default (props) => {
   const render = () => {
     if (!state.fetching) {
       return (
-        state.get.data.map((items, index) => (
+        state.get.map((items, index) => (
           <li key={index}>
-            <Link to={`/details/tv/${items.id_details}`}>
-              <Image src={`${img}w92${items.img}`} rounded />
-              {items.title}
+            <Link to={`/details/tv/${items.tv.id_details}`}>
+              <Image src={`${img}w92${items.tv.poster_path}`} rounded />
+              {items.tv.title}
             </Link>
             <Dropdown>
               <DropdownToggle
                 className={classNames(
                   'state',
-                  `state-${items.status}`
+                  `state-${items.general_status}`
                 )}
               >
                 {
-                  items.status === 'to_see'
+                  items.general_status === 'to_see'
                     ? 'To See'
-                    : items.status === 'watching'
+                    : items.general_status === 'watching'
                       ? 'Watching'
                       : 'Seen'
                 }

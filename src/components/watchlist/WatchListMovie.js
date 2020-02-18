@@ -17,7 +17,7 @@ import API from '../../services/api';
 
 export default (props) => {
   const [state, setState] = useState({
-    films: [],
+    get: [],
     fetching: true,
     delete: true,
     statusChange: false,
@@ -59,7 +59,7 @@ export default (props) => {
     <ul>
       {!state.fetching
         ? (
-          state.films.map((items, index) => (
+          state.get.map((items, index) => (
             <li key={index}>
               <Link to={`/details/movie/${items.movie.id_details}`}>
                 <Image src={`${img}w92${items.movie.poster_path}`} rounded />

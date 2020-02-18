@@ -52,7 +52,7 @@ export default {
       .then(response => {
         setState({
           ...state,
-          films: response.data.data,
+          get: response.data.data,
           fetching: false,
         });
       }).catch(err => {
