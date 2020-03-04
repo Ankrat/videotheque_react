@@ -60,7 +60,6 @@ const Account = () => {
           >
             <div className="txt-field">
               <TextField
-                boxed={true}
                 placeholder="Email"
                 onChange={e => setState({
                   ...state,

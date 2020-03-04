@@ -83,7 +83,7 @@ export default (props) => {
       <ul className="ul-data">
         {!state.fetching
           ? (
-            state.get.slice(0, 20).map((items, index) => (
+            state.get.map((items, index) => (
               <li key={index} className="li-data">
                 <div className="film">
                   <Link to={`/details/movie/${items.movie.id_details}`}>

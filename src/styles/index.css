@@ -21,3 +21,10 @@ code {
 p {
   margin-bottom: 0!important;
 }
+
+@media (prefers-color-scheme: dark) {
+  #root {
+    background-color: #272727;
+    color: white;
+  }
+}

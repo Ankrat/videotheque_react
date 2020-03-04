@@ -53,3 +53,46 @@
     transform: rotate(360deg);
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  h2{
+    color: white;
+  }
+  .page {
+    background-color: #383838;
+    color: white;
+  }
+
+  .ul-data {
+    background-color: #272727!important;
+  }
+
+  .li-data {
+    border: solid 2px #383838!important;
+  }
+
+  .page-link {
+    background-color: #2696AF!important;
+    border: 1px solid #272727!important;
+    color: #fff!important;
+  }
+  .junipero.junipero-tabs>ul.tabs-titles {
+    border-bottom: 1px solid #383838!important;
+  }
+
+  .junipero.junipero-tabs.theme-default>ul.tabs-titles li.active a{
+    color: #2696AF!important;
+  }
+
+  .junipero.junipero-tabs.theme-default>ul.tabs-titles a{
+    color: #7f8184!important;
+  }
+  .nav-tabs {
+    border-bottom: 1px solid #383838!important;
+  }
+  .nav-tabs .nav-link{
+    border: 1px solid #383838!important;
+
+  }
+
+}

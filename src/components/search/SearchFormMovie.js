@@ -100,7 +100,6 @@ export default () => {
     <>
       <h2>Movie</h2>
       <TextField
-        boxed={true}
         type="text"
         placeholder="NAME"
         onChange={e => setState({

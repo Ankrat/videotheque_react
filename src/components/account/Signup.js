@@ -49,7 +49,6 @@ export default () => {
           >
             <div className="txt-field">
               <TextField
-                boxed={true}
                 placeholder="Name"
                 onChange={e => setState({
                   ...state,
@@ -70,7 +69,6 @@ export default () => {
             </div>
             <div className="txt-field">
               <TextField
-                boxed={true}
                 placeholder="Email"
                 onChange={e => setState({
                   ...state,

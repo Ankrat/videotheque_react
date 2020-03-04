@@ -94,7 +94,6 @@ export default () => {
       <h2>Tv</h2>
       <TextField
         type="text"
-        boxed={true}
         placeholder="NAME"
         onChange={e => setState({
           ...state,
