@@ -92,15 +92,18 @@ export default () => {
 
     <>
       <h2>Tv</h2>
-      <TextField
-        type="text"
-        placeholder="NAME"
-        onChange={e => setState({
-          ...state,
-          query: e.value,
-        })}
-        autoFocus
-      />
+      <div className="search">
+        <TextField
+          type="text"
+          className="search-field"
+          placeholder="NAME"
+          onChange={e => setState({
+            ...state,
+            query: e.value,
+          })}
+          autoFocus
+        />
+      </div>
       { page() }
       <ul className="ul-data">
         {

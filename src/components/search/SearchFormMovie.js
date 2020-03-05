@@ -99,18 +99,21 @@ export default () => {
 
     <>
       <h2>Movie</h2>
-      <TextField
-        type="text"
-        placeholder="NAME"
-        onChange={e => setState({
-          ...state,
-          query: e.value,
-        })}
-        onSubmit={e => {
-          e.preventDefault();
-        }}
-        autoFocus
-      />
+      <div className="search">
+        <TextField
+          type="text"
+          className="search-field"
+          placeholder="NAME"
+          onChange={e => setState({
+            ...state,
+            query: e.value,
+          })}
+          onSubmit={e => {
+            e.preventDefault();
+          }}
+          autoFocus
+        />
+      </div>
       { page() }
       <ul className="ul-data">
         {
