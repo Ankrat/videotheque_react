@@ -74,14 +74,6 @@ export default () => {
                     <Toggle
                       className="logout-btn"
                       theme="none"
-                      uncheckedLabel="Dark mode"
-                      checkedLabel="Dark mode"
-                    />
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Toggle
-                      className="logout-btn"
-                      theme="none"
                       uncheckedLabel="Adult"
                       checkedLabel="Adult"
                       checked={user.adult || false}
