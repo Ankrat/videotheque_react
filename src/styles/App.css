@@ -76,6 +76,12 @@
     border: 1px solid #272727!important;
     color: #fff!important;
   }
+  .field-wrapper>label {
+    color: #2696AF!important;
+  }
+  .field {
+    color: #2696AF!important;
+  }
   .junipero.junipero-tabs>ul.tabs-titles {
     border-bottom: 1px solid #383838!important;
   }

@@ -48,10 +48,7 @@ export default (props) => {
         }))
       .catch(err => console.error(err));
 
-    setState({
-      ...state,
-      statusChange: !state.statusChange,
-    });
+
   };
 
   const page = () => {
@@ -76,9 +73,9 @@ export default (props) => {
   return (
 
     <>
-      { state.get.length > 20
-        ? page()
-        : ''
+      { //state.get.length > 20
+      //   ? page()
+      //   : ''
       }
       <ul className="ul-data">
         {!state.fetching
@@ -142,6 +139,7 @@ export default (props) => {
                     type="danger"
                     url={urlApi(items._id).movie}
                     onClick={() => setState({
+                      ...state,
                       fetching: true,
                       delete: !state.delete,
                     })}
