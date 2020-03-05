@@ -16,6 +16,14 @@ h2 {
   width: auto;
 }
 
+.search {
+    display: flex;
+    justify-content: center;
+}
+.search-field {
+  width: 50%;
+}
+
 h6 {
   padding: 10px 0 0 10px;
 }
@@ -46,5 +54,5 @@ h6 {
 }
 .pagination {
   justify-content: center;
-  margin: 10px 0;
+  padding: 10px 0;
 }
