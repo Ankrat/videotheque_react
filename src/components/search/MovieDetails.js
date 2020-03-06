@@ -27,10 +27,8 @@ export default (props) => {
 
     <div
       className="background"
-      style={{
-        backgroundImage: `url(${img}original${state.get.backdrop_path})`,
-        height: '100vh'
-      }}>
+      style={{backgroundImage: 
+        `url(${img}original${state.get.backdrop_path})`}}>
       <Container className="details">
         <Row>
           <Col>
