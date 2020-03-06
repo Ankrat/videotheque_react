@@ -6,8 +6,9 @@ import { Button } from '@poool/junipero';
 
 
 import '../../styles/Details.css';
-import { url, img } from '../../services/content';
 import API from '../../services/api';
+import ButtonAdd from '../fragments/ButtonAdd';
+import { url, img, urlApi, userId } from '../../services/content';
 
 export default (props) => {
   const [state, setState] = useState({
@@ -42,16 +43,18 @@ export default (props) => {
               rounded />
           </Col>
           <Col>
-            <Button
+            <ButtonAdd
+              title="Add to WatchList"
               className="btn-add"
               reversed={true}
               type="success"
-            >Add to WatchList</Button>
-            <Button
-              className="btn-add"
-              reversed={true}
-              type="warning"
-            >Add to Fav</Button>
+              url={urlApi(userId).tv}
+              data={{
+                poster_path: state.get.poster_path,
+                title: state.get.name,
+                id_details: state.get.id,
+              }}
+            />
           </Col>
         </Row>
         <h2>{state.get.original_name}</h2>
