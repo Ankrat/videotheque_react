@@ -3,7 +3,9 @@ h2 {
 }
 .ul-data {
   background-color: #FCFCFC;
-  width: max-content;
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .li-data {
@@ -13,7 +15,7 @@ h2 {
   justify-content: space-between;
   border: solid 2px #E3EBF2;
   border-radius: 10px;
-  width: auto;
+  width: 23%;
 }
 
 .search {
