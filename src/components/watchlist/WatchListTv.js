@@ -106,8 +106,8 @@ export default (props) => {
                 reversed={true}
                 type="danger"
                 url={urlApi(items._id).tv}
-                onClick={() => setState({
-                  fetching: true,
+                Click={() => setState({
+                  ...state,
                   delete: !state.delete,
                 })}
               />

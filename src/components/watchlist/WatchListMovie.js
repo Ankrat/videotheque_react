@@ -8,7 +8,8 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from '@poool/junipero';
+  DropdownItem,
+  Modal } from '@poool/junipero';
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
@@ -19,10 +20,11 @@ export default (props) => {
   const [state, setState] = useState({
     get: [],
     fetching: true,
-    delete: true,
+    delete: false,
     statusChange: false,
     current_page: 1,
     total_pages: 1,
+    defaultModal: false,
   });
 
   useEffect(() => {
@@ -47,8 +49,6 @@ export default (props) => {
           statusChange: !state.statusChange,
         }))
       .catch(err => console.error(err));
-
-
   };
 
   const page = () => {
@@ -131,16 +131,14 @@ export default (props) => {
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
-
                   <ButtonDel
-                    title="Delete"
-                    className="btn-add"
+                    title="Confirm Delete"
+                    className="btn-add button"
                     reversed={true}
                     type="danger"
                     url={urlApi(items._id).movie}
-                    onClick={() => setState({
+                    Click={() => setState({
                       ...state,
-                      fetching: true,
                       delete: !state.delete,
                     })}
                   />

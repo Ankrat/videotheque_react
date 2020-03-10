@@ -27,15 +27,17 @@ export default (props) => {
 
     <div
       className="background"
-      style={{backgroundImage: 
-        `url(${img}original${state.get.backdrop_path})`}}>
+      style={{backgroundImage:
+        `url(${img}original${state.get.backdrop_path})`}}
+    >
       <Container className="details">
         <Row>
           <Col>
             <Image
               className="img-details"
               src={`${img}w500/${state.get.poster_path}`}
-              rounded />
+              rounded
+            />
           </Col>
           <Col>
             <ButtonAdd

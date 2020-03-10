@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button } from '@poool/junipero';
+import { Button, Modal } from '@poool/junipero';
 import API from '../../services/api';
 
 export default ({
@@ -8,22 +8,42 @@ export default ({
   className = 'btn-add',
   reversed = true,
   type = 'success',
-  dataId,
-  userId,
   url,
-  onClick = () => {},
+  Click = () => {},
 }) => {
 
+  const [state, setState] = useState({
+    defaultModal: false,
+  });
+
   return (
-    <Button
-      className={className}
-      reversed={reversed}
-      type={type}
-      onClick={e => {
-        e.preventDefault();
-        API.remove(url);
-        onClick();
-      }}
-    >{ title }</Button>
+    <>
+      <Button
+        title="Delete"
+        className="btn-add button"
+        reversed={true}
+        type="danger"
+        onClick={() => {
+          state.defaultModal.open();
+        }
+
+        }
+      >Delete</Button>
+      <Modal
+        ref={(ref) => state.defaultModal = ref}
+      >
+        <Button
+          className={className}
+          reversed={reversed}
+          type={type}
+          onClick={async e => {
+            e.preventDefault();
+            await API.remove(url);
+            await state.defaultModal.close();
+            await setTimeout(() => Click(), 100);
+          }}
+        >{ title }</Button>
+      </Modal>
+    </>
   );
 };

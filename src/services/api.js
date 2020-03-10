@@ -96,6 +96,7 @@ export default {
     axios.delete(url, headers)
       .then(res => {
         console.log(res);
+        return true;
       })
       .catch((error) => {
         console.log(error);
