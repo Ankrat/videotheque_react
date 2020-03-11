@@ -62,8 +62,8 @@ export default (props) => {
             {
               state.get.original_title
             }{
-              state.get.belongs_to_collection
-                ? ` (${state.get.belongs_to_collection.name})`
+              state.get.original_title !== state.get.title
+                ? ` (${state.get.title})`
                 : ''
             }
           </h2>
