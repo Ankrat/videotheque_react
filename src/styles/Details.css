@@ -10,6 +10,19 @@
   height: auto;
   padding: 10px;
 }
+
+.details-content {
+  margin-bottom: 40px;
+}
+
+.details-content>h2 {
+  margin-bottom: 20px;
+}
+
+.details-content>p>span {
+  font-weight: 500;
+}
+
 .img-details {
   margin-top: 15px;
 }
