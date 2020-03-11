@@ -16,8 +16,7 @@ export default {
   loadData: async (url, state, setState, source) => {
     try {
       const response = await axios.get(
-        url,
-        {
+        url, {
           cancelToken: source.token,
         });
 

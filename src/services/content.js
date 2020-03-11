@@ -10,7 +10,7 @@ export const url = (
   query = 'a',
   page = '1',
   adult = 'false',
-  langue = 'EN-us'
+  langue = 'en-US'
 ) => {
   return {
     query_movie: `https://api.themoviedb.org/3/search/movie` +
