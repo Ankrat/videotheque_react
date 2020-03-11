@@ -132,7 +132,7 @@ export default (props) => {
                     </DropdownMenu>
                   </Dropdown>
                   <ButtonDel
-                    title="Confirm Delete"
+                    title="Confirm"
                     className="btn-add button"
                     reversed={true}
                     type="danger"
