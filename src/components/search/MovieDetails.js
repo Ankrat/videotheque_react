@@ -38,52 +38,54 @@ export default (props) => {
             />
           </Col>
           <Col>
-            {
-              userId
-                ? (
-                  <ButtonAdd
-                    title="Add to WatchList"
-                    className="btn-add"
-                    reversed={true}
-                    type="success"
-                    url={urlApi(userId).movie}
-                    data={{
-                      poster_path: state.get.poster_path,
-                      title: state.get.title,
-                      id_details: state.get.id,
-                    }}
-                  />
-                ) : ''
-            }
+            <div className="details-content">
+              <h2>
+                {
+                  state.get.original_title
+                }{
+                  state.get.original_title !== state.get.title
+                    ? ` (${state.get.title})`
+                    : ''
+                }
+              </h2>
+              <p><span>Release date:</span> {state.get.release_date}</p>
+              <p><span>Runtime:</span> {state.get.runtime} min</p>
+              <p><span>Genres:</span> {
+                state.genres.map((elem, index) => (
+                  elem.name + ' / '
+                ))
+              }
+              </p>
+              <p><span>Country:</span> {
+                state.country.map((elem, index) => (
+                  elem.name
+                ))
+              }
+              </p>
+              <h2>Synopsis & Details</h2>
+              <p>{state.get.overview}</p>
+            </div>
+            <div>
+              {
+                userId
+                  ? (
+                    <ButtonAdd
+                      title="Add to WatchList"
+                      className="btn-add"
+                      reversed={true}
+                      type="success"
+                      url={urlApi(userId).movie}
+                      data={{
+                        poster_path: state.get.poster_path,
+                        title: state.get.title,
+                        id_details: state.get.id,
+                      }}
+                    />
+                  ) : ''
+              }
+            </div>
           </Col>
         </Row>
-        <div className="details-content">
-          <h2>
-            {
-              state.get.original_title
-            }{
-              state.get.original_title !== state.get.title
-                ? ` (${state.get.title})`
-                : ''
-            }
-          </h2>
-          <p><span>Release date:</span> {state.get.release_date}</p>
-          <p><span>Runtime:</span> {state.get.runtime} min</p>
-          <p><span>Genres:</span> {
-            state.genres.map((elem, index) => (
-              elem.name + ' / '
-            ))
-          }
-          </p>
-          <p><span>Country:</span> {
-            state.country.map((elem, index) => (
-              elem.name
-            ))
-          }
-          </p>
-          <h2>Synopsis & Details</h2>
-          <p>{state.get.overview}</p>
-        </div>
       </Container>
     </div>
 

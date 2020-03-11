@@ -2,7 +2,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  height: auto;
+  height: 100%;
+  display: flex;
   color: white;
 }
 .details {

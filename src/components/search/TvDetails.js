@@ -43,6 +43,63 @@ export default (props) => {
               rounded />
           </Col>
           <Col>
+            <div className="details-content">
+              <h2>{state.get.original_name}</h2>
+              <p><span>First air date:</span> {state.get.first_air_date}</p>
+              <p><span>Episode run time:</span> {
+                state.get.episode_run_time + ''
+              } min
+              </p>
+              <p><span>Genres:</span> {
+                state.genres.map((elem, index) => (
+                  elem.name + ' / '
+                ))
+              }</p>
+              <p><span>Origine country:</span> {
+                state.get.origin_country + ''
+              }
+              </p>
+              <h2>Synopsis & Details</h2>
+              <p>{state.get.overview}</p>
+              <h2><Button
+                type="primary"
+                onClick={() => setState({
+                  ...state,
+                  open_details: !state.open_details,
+                })}
+              >Plus d'info...</Button></h2>
+
+              <Collapse in={state.open_details}>
+                <Accordion defaultActiveKey="0">
+                  {
+                    state.seasons.map((elem, index) => (
+                      <Card key={index} className="color-background">
+                        <Card.Header>
+                          <Accordion.Toggle
+                            as={Button}
+                            type="primary"
+                            theme="none"
+                            eventKey={index}>
+                            {elem.name}
+                          </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey={index}>
+                          <Card.Body>
+                            <Image
+                              src={`${img}w92/${elem.poster_path}`}
+                              rounded
+                            />
+                            <p>Date: {elem.air_date}</p>
+                            <p>Episodes: {elem.episode_count}</p>
+                          </Card.Body>
+                        </Accordion.Collapse>
+                      </Card>
+                    ))
+                  }
+                </Accordion>
+
+              </Collapse>
+            </div>
             <ButtonAdd
               title="Add to WatchList"
               className="btn-add"
@@ -57,51 +114,7 @@ export default (props) => {
             />
           </Col>
         </Row>
-        <h2>{state.get.original_name}</h2>
-        <p>{state.get.first_air_date} /
-          {state.get.episode_run_time + ''} min /
-          {state.genres.map((elem, index) => (
-            elem.name + ' '
-          ))
-          }</p>
-        <p>{state.country + ''}</p>
-        <h2>SYNOPSIS ET DÉTAILS</h2>
-        <p>{state.get.overview}</p>
-        <h2><Button
-          type="primary"
-          onClick={() => setState({
-            ...state,
-            open_details: !state.open_details,
-          })}
-        >Plus d'info...</Button></h2>
 
-        <Collapse in={state.open_details}>
-          <Accordion defaultActiveKey="0">
-            {
-              state.seasons.map((elem, index) => (
-                <Card key={index} className="color-background">
-                  <Card.Header>
-                    <Accordion.Toggle
-                      as={Button}
-                      type="primary"
-                      theme="none"
-                      eventKey={index}>
-                      {elem.name}
-                    </Accordion.Toggle>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey={index}>
-                    <Card.Body>
-                      <Image src={`${img}w92/${elem.poster_path}`} rounded />
-                      <p>Date: {elem.air_date}</p>
-                      <p>Episodes: {elem.episode_count}</p>
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              ))
-            }
-          </Accordion>
-
-        </Collapse>
 
       </Container>
     </div>

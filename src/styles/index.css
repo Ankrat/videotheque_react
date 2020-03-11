@@ -19,7 +19,7 @@ code {
 
 #root {
   background-color: #FCFCFC;
-  height: auto;
+  height: 100%;
 }
 p {
   margin-bottom: 0!important;
