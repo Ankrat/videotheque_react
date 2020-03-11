@@ -2,7 +2,7 @@ export const img = 'https://image.tmdb.org/t/p/';
 
 export const AuthStr = sessionStorage.getItem('Authorization');
 
-export const userId = sessionStorage.getItem('userId');
+export const userId = sessionStorage.getItem('userId') || false;
 
 
 export const url = (
