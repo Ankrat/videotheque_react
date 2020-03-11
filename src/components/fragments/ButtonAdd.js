@@ -16,26 +16,22 @@ export default ({
   const [state, setState] = useState({
     err_3: false,
     defaultModal: false,
-    secondModal: false,
   });
 
   const closeDefaultModal = setTimeout(() => {
     state.defaultModal.close();
   }, 1000);
 
-  const closeSecondModal = setTimeout(() => {
-    state.secondModal.close();
-  }, 1000);
-
   return (
     <>
       <Modal
         ref={(ref) => state.defaultModal = ref}
-      >Alredy in watchlist</Modal>
-
-      <Modal
-        ref={(ref) => state.secondModal = ref}
-      >It's a good Show 👌</Modal>
+      >{
+          state.err_3
+            ? (<p>Alredy in watchlist</p>)
+            : (<p>It's a good show</p>)
+        }
+      </Modal>
       <Button
         className={className}
         reversed={reversed}
@@ -47,14 +43,8 @@ export default ({
           //   err_3: false,
           // });
           API.send(url, data, state, setState);
-          if (state.err_3) {
-            await state.defaultModal.open();
-            await closeDefaultModal;
-          } else {
-            await state.secondModal.open();
-            await closeSecondModal;
-          }
-
+          await state.defaultModal.open();
+          await closeDefaultModal;
         }}
       >{ title }
       </Button>
