@@ -25,6 +25,7 @@ export default {
         get: response.data.results,
         current_page: response.data.page,
         total_pages: response.data.total_pages,
+        fetching: false,
       });
     } catch (e) {
       if (axios.isCancel(e)) {
