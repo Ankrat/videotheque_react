@@ -99,7 +99,13 @@ export default (props) => {
                         src={`${img}w92${items.movie.poster_path}`}
                         rounded
                       />
-                      <h6>{items.movie.title}</h6>
+                      <h6>
+                        {
+                          items.movie.title.length >= 25
+                            ? items.movie.title.substr(0, 25) + '...'
+                            : items.movie.title
+                        }
+                      </h6>
                     </Link>
                   </div>
                   <div className="control">

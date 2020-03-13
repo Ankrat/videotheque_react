@@ -72,7 +72,13 @@ export default (props) => {
                 <div className="film">
                   <Link to={`/details/tv/${items.tv.id_details}`}>
                     <Image src={`${img}w92${items.tv.poster_path}`} rounded />
-                    <h6>{items.tv.title}</h6>
+                    <h6>
+                      {
+                        items.tv.title.length >= 25
+                          ? items.tv.title.substr(0, 25) + '...'
+                          : items.tv.title
+                      }
+                    </h6>
                   </Link>
                 </div>
                 <div className="control">

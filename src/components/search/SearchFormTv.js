@@ -129,7 +129,13 @@ export default () => {
                           <Image src={ elem.poster_path ?
                             `${img}w92${elem.poster_path}` :
                             noimg } rounded />
-                          <h6>{elem.name}</h6>
+                          <h6>
+                            {
+                              elem.name.length >= 25
+                                ? elem.name.substr(0, 25) + '...'
+                                : elem.name
+                            }
+                          </h6>
                         </Link>
                       </div>
                       <ButtonAdd

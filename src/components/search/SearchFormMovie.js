@@ -141,7 +141,13 @@ export default () => {
                               ? `${img}w92${elem.poster_path}`
                               : noimg }
                             rounded />
-                          <h6>{elem.title}</h6>
+                          <h6>
+                            {
+                              elem.title.length >= 25
+                                ? elem.title.substr(0, 25) + '...'
+                                : elem.title
+                            }
+                          </h6>
                         </Link>
                         { elem.adult ? '🔞' : '' }
                       </div>
