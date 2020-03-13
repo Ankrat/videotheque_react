@@ -2,13 +2,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   color: white;
 }
 .details {
   background-color: rgba(28, 29, 31, 0.93);
-  height: auto;
+  height: fit-content;
   padding: 10px;
 }
 
