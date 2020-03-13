@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Button, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import {
   classNames,
   Dropdown,
@@ -78,79 +79,85 @@ export default (props) => {
       //   : ''
       }
       <ul className="ul-data">
-        {!state.fetching
-          ? (
-            state.get.map((items, index) => (
-              <li key={index} className="li-data">
-                <div className="film">
-                  <Link to={`/details/movie/${items.movie.id_details}`}>
-                    <Image
-                      src={`${img}w92${items.movie.poster_path}`}
-                      rounded
+        {
+          state.fetching
+            ? (
+              <div className="spinner-custom">
+                <Loader
+                  type="CradleLoader"
+                  color="#00BFFF"
+                  height={100}
+                  width={100}
+                />
+              </div>
+            ) : (
+              state.get.map((items, index) => (
+                <li key={index} className="li-data">
+                  <div className="film">
+                    <Link to={`/details/movie/${items.movie.id_details}`}>
+                      <Image
+                        src={`${img}w92${items.movie.poster_path}`}
+                        rounded
+                      />
+                      <h6>{items.movie.title}</h6>
+                    </Link>
+                  </div>
+                  <div className="control">
+                    <Dropdown>
+                      <DropdownToggle
+                        className={classNames(
+                          'state',
+                          `state-${items.status}`
+                        )}
+                      >
+                        {
+                          items.status === 'to_see'
+                            ? 'To See'
+                            : items.status === 'watching'
+                              ? 'Watching'
+                              : 'Seen'
+                        }
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'to_see') }
+                          >To See</Button>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'watching') }
+                          >Watching</Button>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'seen') }
+                          >Seen</Button>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                    <ButtonDel
+                      title="Confirm"
+                      className="btn-add button"
+                      reversed={true}
+                      type="danger"
+                      url={urlApi(items._id).movie}
+                      Click={() => setState({
+                        ...state,
+                        delete: !state.delete,
+                      })}
                     />
-                    <h6>{items.movie.title}</h6>
-                  </Link>
-                </div>
-                <div className="control">
-                  <Dropdown>
-                    <DropdownToggle
-                      className={classNames(
-                        'state',
-                        `state-${items.status}`
-                      )}
-                    >
-                      {
-                        items.status === 'to_see'
-                          ? 'To See'
-                          : items.status === 'watching'
-                            ? 'Watching'
-                            : 'Seen'
-                      }
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'to_see') }
-                        >To See</Button>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'watching') }
-                        >Watching</Button>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'seen') }
-                        >Seen</Button>
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                  <ButtonDel
-                    title="Confirm"
-                    className="btn-add button"
-                    reversed={true}
-                    type="danger"
-                    url={urlApi(items._id).movie}
-                    Click={() => setState({
-                      ...state,
-                      delete: !state.delete,
-                    })}
-                  />
-                </div>
-              </li>
+                  </div>
+                </li>
 
-            ))
-          ) : (
-            <>
-              <h4>No data or No connected ...</h4>
-            </>
-          )
+              ))
+            )
         }
       </ul>
     </>

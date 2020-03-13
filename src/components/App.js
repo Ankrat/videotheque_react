@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import '../styles/App.css';
 import Home from './Home';

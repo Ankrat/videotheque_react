@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextField } from '@poool/junipero';
+import Loader from 'react-loader-spinner';
 
 import '../../styles/Search.css';
 import noimg from '../../styles/img/noimg.png';
@@ -17,6 +18,7 @@ export default () => {
     get: [],
     query: 'a',
     page: 1,
+    fetching: true,
   });
 
   useEffect(() => {
@@ -104,36 +106,52 @@ export default () => {
           autoFocus
         />
       </div>
-      { page() }
-      <ul className="ul-data">
-        {
-          state.get.map((elem, index) => (
-            <li key={index} className="li-data">
-              <div className="film">
-                <Link to={`/details/tv/${elem.id}`}>
-                  <Image src={ elem.poster_path ?
-                    `${img}w92${elem.poster_path}` :
-                    noimg } rounded />
-                  <h6>{elem.name}</h6>
-                </Link>
-              </div>
-              <ButtonAdd
-                title="Add to WatchList"
-                className="btn-add"
-                reversed={true}
-                type="success"
-                url={urlApi(userId).tv}
-                data={{
-                  poster_path: elem.poster_path,
-                  title: elem.name,
-                  id_details: elem.id,
-                }}
+      {
+        state.fetching
+          ? (
+            <div className="spinner-custom">
+              <Loader
+                type="CradleLoader"
+                color="#00BFFF"
+                height={100}
+                width={100}
               />
-            </li>
-          ))
-        }
-      </ul>
-      { page() }
+            </div>
+          ) : (
+            <>
+              { page() }
+              <ul className="ul-data">
+                {
+                  state.get.map((elem, index) => (
+                    <li key={index} className="li-data">
+                      <div className="film">
+                        <Link to={`/details/tv/${elem.id}`}>
+                          <Image src={ elem.poster_path ?
+                            `${img}w92${elem.poster_path}` :
+                            noimg } rounded />
+                          <h6>{elem.name}</h6>
+                        </Link>
+                      </div>
+                      <ButtonAdd
+                        title="Add to WatchList"
+                        className="btn-add"
+                        reversed={true}
+                        type="success"
+                        url={urlApi(userId).tv}
+                        data={{
+                          poster_path: elem.poster_path,
+                          title: elem.name,
+                          id_details: elem.id,
+                        }}
+                      />
+                    </li>
+                  ))
+                }
+              </ul>
+              { page() }
+            </>
+          )
+      }
     </>
 
   );

@@ -60,3 +60,9 @@
   background-color: #1FB790;
   color: white;
 }
+
+.spinner-custom {
+  position: absolute;
+  left: 45%;
+  top: 50%;
+}
