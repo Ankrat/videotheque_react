@@ -21,6 +21,7 @@ export default (props) => {
     get: [],
     fetching: true,
     delete: true,
+    slice: 20,
     statusChange: false,
   });
 
@@ -53,90 +54,121 @@ export default (props) => {
 
 
   return (
-    <ul className="ul-data">
-      {
-        state.fetching
-          ? (
+    <>
+      <ul className="ul-data">
+        {
+          state.fetching
+            ? (
 
-            <div className="spinner-custom">
-              <Loader
-                type="CradleLoader"
-                color="#00BFFF"
-                height={100}
-                width={100}
-              />
+              <div className="spinner-custom">
+                <Loader
+                  type="CradleLoader"
+                  color="#00BFFF"
+                  height={100}
+                  width={100}
+                />
+              </div>
+            ) : (
+              state.get.slice(0, state.slice).map((items, index) => (
+                <li key={index} className="li-data">
+                  <div className="film">
+                    <Link to={`/details/tv/${items.tv.id_details}`}>
+                      <Image src={`${img}w92${items.tv.poster_path}`} rounded />
+                      <h6>
+                        {
+                          items.tv.title.length >= 25
+                            ? items.tv.title.substr(0, 25) + '...'
+                            : items.tv.title
+                        }
+                      </h6>
+                    </Link>
+                  </div>
+                  <div className="control">
+                    <Dropdown>
+                      <DropdownToggle
+                        className={classNames(
+                          'state',
+                          `state-${items.general_status}`
+                        )}
+                      >
+                        {
+                          items.general_status === 'to_see'
+                            ? 'To See'
+                            : items.general_status === 'watching'
+                              ? 'Watching'
+                              : 'Seen'
+                        }
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'to_see') }
+                          >To See</Button>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'watching') }
+                          >Watching</Button>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Button
+                            variant="link"
+                            className="state"
+                            onClick={ () => statusView(items._id, 'seen') }
+                          >Seen</Button>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                    <ButtonDel
+                      title="Confirm"
+                      className="btn-add"
+                      reversed={true}
+                      type="danger"
+                      url={urlApi(items._id).tv}
+                      Click={() => setState({
+                        ...state,
+                        delete: !state.delete,
+                      })}
+                    />
+                  </div>
+                </li>
+              ))
+            )
+        }
+      </ul>
+      {
+        state.get.length > 20
+          ? (
+            <div className="button-pagination">
+              {
+                state.slice === undefined
+                  ? (
+                    <Button
+                      variant="info"
+                      onClick={() => setState({
+                        ...state,
+                        slice: 20,
+                      })}
+                    >Close all
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="info"
+                      onClick={() => setState({
+                        ...state,
+                        slice: undefined,
+                      })}
+                    >Show all
+                    </Button>
+                  )
+              }
             </div>
-          ) : (
-            state.get.map((items, index) => (
-              <li key={index} className="li-data">
-                <div className="film">
-                  <Link to={`/details/tv/${items.tv.id_details}`}>
-                    <Image src={`${img}w92${items.tv.poster_path}`} rounded />
-                    <h6>
-                      {
-                        items.tv.title.length >= 25
-                          ? items.tv.title.substr(0, 25) + '...'
-                          : items.tv.title
-                      }
-                    </h6>
-                  </Link>
-                </div>
-                <div className="control">
-                  <Dropdown>
-                    <DropdownToggle
-                      className={classNames(
-                        'state',
-                        `state-${items.general_status}`
-                      )}
-                    >
-                      {
-                        items.general_status === 'to_see'
-                          ? 'To See'
-                          : items.general_status === 'watching'
-                            ? 'Watching'
-                            : 'Seen'
-                      }
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'to_see') }
-                        >To See</Button>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'watching') }
-                        >Watching</Button>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <Button
-                          variant="link"
-                          className="state"
-                          onClick={ () => statusView(items._id, 'seen') }
-                        >Seen</Button>
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                  <ButtonDel
-                    title="Confirm"
-                    className="btn-add"
-                    reversed={true}
-                    type="danger"
-                    url={urlApi(items._id).tv}
-                    Click={() => setState({
-                      ...state,
-                      delete: !state.delete,
-                    })}
-                  />
-                </div>
-              </li>
-            ))
-          )
+          ) : ''
       }
-    </ul>
+    </>
   );
 };

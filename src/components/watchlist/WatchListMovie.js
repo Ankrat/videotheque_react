@@ -9,8 +9,8 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  Modal } from '@poool/junipero';
+  DropdownItem
+} from '@poool/junipero';
 
 import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
@@ -23,8 +23,7 @@ export default (props) => {
     fetching: true,
     delete: false,
     statusChange: false,
-    current_page: 1,
-    total_pages: 1,
+    slice: 20,
     defaultModal: false,
   });
 
@@ -52,32 +51,8 @@ export default (props) => {
       .catch(err => console.error(err));
   };
 
-  const page = () => {
-
-    return (
-      <div>
-        <Pagination>
-          <Pagination.Prev/>
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis disabled/>
-
-          <Pagination.Item active>{state.current_page}</Pagination.Item>
-
-          <Pagination.Ellipsis disabled/>
-          <Pagination.Item>{state.total_pages}</Pagination.Item>
-          <Pagination.Next/>
-        </Pagination>
-      </div>
-    );
-  };
-
   return (
-
     <>
-      { //state.get.length > 20
-      //   ? page()
-      //   : ''
-      }
       <ul className="ul-data">
         {
           state.fetching
@@ -91,7 +66,7 @@ export default (props) => {
                 />
               </div>
             ) : (
-              state.get.map((items, index) => (
+              state.get.slice(0, state.slice).map((items, index) => (
                 <li key={index} className="li-data">
                   <div className="film">
                     <Link to={`/details/movie/${items.movie.id_details}`}>
@@ -166,6 +141,35 @@ export default (props) => {
             )
         }
       </ul>
+      {
+        state.get.length > 20
+          ? (
+            <div className="button-pagination">
+              {
+                state.slice === undefined
+                  ? (
+                    <Button
+                      variant="info"
+                      onClick={() => setState({
+                        ...state,
+                        slice: 20,
+                      })}
+                    >Close all
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="info"
+                      onClick={() => setState({
+                        ...state,
+                        slice: undefined,
+                      })}
+                    >Show all
+                    </Button>
+                  )
+              }
+            </div>
+          ) : ''
+      }
     </>
 
   );
