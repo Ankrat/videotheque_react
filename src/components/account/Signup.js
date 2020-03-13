@@ -21,7 +21,7 @@ export default () => {
 
     event.preventDefault();
 
-    axios.post('http://localhost:8085/auth/signup', {
+    axios.post('https://videotheque-server.ddns.net:8085/auth/signup', {
       name: state.name,
       username: state.userName,
       email: state.email,
