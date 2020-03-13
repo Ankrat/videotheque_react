@@ -150,7 +150,7 @@ export default (props) => {
                 state.slice === undefined
                   ? (
                     <Button
-                      variant="info"
+                      variant="light"
                       onClick={() => setState({
                         ...state,
                         slice: 20,
@@ -160,7 +160,7 @@ export default (props) => {
                     </Button>
                   ) : (
                     <Button
-                      variant="info"
+                      variant="light"
                       onClick={() => setState({
                         ...state,
                         slice: undefined,
