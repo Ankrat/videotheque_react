@@ -15,6 +15,8 @@ import '../../styles/Details.css';
 import ButtonDel from '../fragments/ButtonDel';
 import { AuthStr, userId, urlApi, img } from '../../services/content';
 import API from '../../services/api';
+import up from '../../styles/img/pointing-up.png';
+import down from '../../styles/img/pointing-down.png';
 
 export default (props) => {
   const [state, setState] = useState({
@@ -153,7 +155,8 @@ export default (props) => {
                         ...state,
                         slice: 20,
                       })}
-                    >Close all
+                    >
+                      <img src={down}/>
                     </Button>
                   ) : (
                     <Button
@@ -162,7 +165,8 @@ export default (props) => {
                         ...state,
                         slice: undefined,
                       })}
-                    >Show all
+                    >
+                      <img src={up}/>
                     </Button>
                   )
               }
