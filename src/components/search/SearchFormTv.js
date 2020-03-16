@@ -138,18 +138,23 @@ export default () => {
                           </h6>
                         </Link>
                       </div>
-                      <ButtonAdd
-                        title="Add to WatchList"
-                        className="btn-add"
-                        reversed={true}
-                        type="success"
-                        url={urlApi(userId).tv}
-                        data={{
-                          poster_path: elem.poster_path,
-                          title: elem.name,
-                          id_details: elem.id,
-                        }}
-                      />
+                      {
+                        userId
+                          ? (
+                            <ButtonAdd
+                              title="Add to WatchList"
+                              className="btn-add"
+                              reversed={true}
+                              type="success"
+                              url={urlApi(userId).tv}
+                              data={{
+                                poster_path: elem.poster_path,
+                                title: elem.name,
+                                id_details: elem.id,
+                              }}
+                            />
+                          ) : ''
+                      }
                     </li>
                   ))
                 }
