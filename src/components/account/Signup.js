@@ -17,7 +17,7 @@ export default () => {
     passState: false,
     err_666: false,
   });
-console.log(state);
+
   const submit = event => {
 
     event.preventDefault();
