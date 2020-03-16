@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form } from 'react-bootstrap';
@@ -12,11 +12,12 @@ export default () => {
   const [state, setState] = useState({
     name: '',
     userName: '',
-    email: '',
     passwd: '',
+    passwdConf: '',
+    passState: false,
     err_666: false,
   });
-
+console.log(state);
   const submit = event => {
 
     event.preventDefault();
@@ -24,7 +25,6 @@ export default () => {
     axios.post('http://localhost:8085/auth/signup', {
       name: state.name,
       username: state.userName,
-      email: state.email,
       password: state.passwd,
     })
       .then(res => window.location = '/')
@@ -37,6 +37,20 @@ export default () => {
         }
       });
 
+  };
+
+  const confPass = () => {
+    if (state.passwd === state.passwdConf) {
+      setState({
+        ...state,
+        passState: true,
+      });
+    } else {
+      setState({
+        ...state,
+        passState: false,
+      });
+    }
   };
 
   return (
@@ -66,19 +80,9 @@ export default () => {
                 })}
                 required
               />
-            </div>
-            <div className="txt-field">
-              <TextField
-                placeholder="Email"
-                onChange={e => setState({
-                  ...state,
-                  email: e.value,
-                })}
-                required
-              />
-              { state.err_666 ?
-                ( <span className="err">email already exists</span> ) :
-                ''
+              { state.err_666
+                  ? ( <span className="err">username already exists</span> )
+                  : ''
               }
             </div>
             <div className="txt-field">
@@ -86,12 +90,35 @@ export default () => {
                 theme="none"
                 type="password"
                 placeholder="Password"
-                onChange={e => setState({
-                  ...state,
-                  passwd: e.value,
-                })}
+                onChange={async e => {
+                  setState({
+                    ...state,
+                    passwd: e.value,
+                    passState: e.value !== state.passwdConf
+                  });
+                }}
                 required
               />
+            </div>
+            <div className="txt-field">
+              <TextField
+                theme="none"
+                type="password"
+                placeholder="Confirmation Password"
+                onChange={e => {
+                  setState({
+                    ...state,
+                    passwdConf: e.value,
+                    passState: e.value !== state.passwd
+                  });
+                }}
+                required
+              />
+              {
+                state.passState
+                  ? ( <span className="err">Wrong password</span> )
+                  : ''
+              }
             </div>
             <div className="btn-log">
               <Button
@@ -99,6 +126,7 @@ export default () => {
                 size="big"
                 submit={true}
                 tag="button"
+                disabled={state.passState}
               >Send
               </Button>
             </div>

@@ -8,7 +8,7 @@ import { TextField, Button } from '@poool/junipero';
 const Account = () => {
 
   const [state, setState] = useState({
-    email: '',
+    username: '',
     passwd: '',
     err_1: false,
     err_2: false,
@@ -19,7 +19,7 @@ const Account = () => {
     event.preventDefault();
 
     axios.post('http://localhost:8085/auth/login', {
-      email: state.email,
+      username: state.username,
       password: state.passwd,
     })
       .then(res => {
@@ -60,10 +60,10 @@ const Account = () => {
           >
             <div className="txt-field">
               <TextField
-                placeholder="Email"
+                placeholder="User Name"
                 onChange={e => setState({
                   ...state,
-                  email: e.value,
+                  username: e.value,
                 })}
                 required
               />
