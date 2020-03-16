@@ -31,8 +31,8 @@ export const url = (
 
 export const urlApi = (id = '') => {
   return {
-    movie: `http://localhost:8085/api/watchlist-mv/${id}`,
-    tv: `http://localhost:8085/api/watchlist-tv/${id}`,
-    user: `http://localhost:8085/auth/update/${id}`,
+    movie: `https://videotheque-server.ddns.net:8085/api/watchlist-mv/${id}`,
+    tv: `https://videotheque-server.ddns.net:8085/api/watchlist-tv/${id}`,
+    user: `https://videotheque-server.ddns.net:8085/auth/update/${id}`,
   };
 };
