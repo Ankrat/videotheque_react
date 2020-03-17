@@ -115,18 +115,23 @@ export default (props) => {
 
                       </Collapse>
                     </div>
-                    <ButtonAdd
-                      title="Add to WatchList"
-                      className="btn-add"
-                      reversed={true}
-                      type="success"
-                      url={urlApi(userId).tv}
-                      data={{
-                        poster_path: state.get.poster_path,
-                        title: state.get.name,
-                        id_details: state.get.id,
-                      }}
-                    />
+                    {
+                      userId
+                        ? (
+                          <ButtonAdd
+                            title="Add to WatchList"
+                            className="btn-add"
+                            reversed={true}
+                            type="success"
+                            url={urlApi(userId).tv}
+                            data={{
+                              poster_path: state.get.poster_path,
+                              title: state.get.name,
+                              id_details: state.get.id,
+                            }}
+                          />
+                        ) : ''
+                    }
                   </Col>
                 </Row>
 

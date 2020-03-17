@@ -151,18 +151,23 @@ export default () => {
                         </Link>
                         { elem.adult ? '🔞' : '' }
                       </div>
-                      <ButtonAdd
-                        title="Add to WatchList"
-                        className="btn-add"
-                        reversed={true}
-                        type="success"
-                        url={urlApi(userId).movie}
-                        data={{
-                          poster_path: elem.poster_path,
-                          title: elem.title,
-                          id_details: elem.id,
-                        }}
-                      />
+                      {
+                        userId
+                          ? (
+                            <ButtonAdd
+                              title="Add to WatchList"
+                              className="btn-add"
+                              reversed={true}
+                              type="success"
+                              url={urlApi(userId).movie}
+                              data={{
+                                poster_path: elem.poster_path,
+                                title: elem.title,
+                                id_details: elem.id,
+                              }}
+                            />
+                          ) : ''
+                      }
                     </li>
                   ))
                 }
