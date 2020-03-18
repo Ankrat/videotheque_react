@@ -18,7 +18,7 @@ const Account = () => {
 
     event.preventDefault();
 
-    axios.post('https://videotheque-server.ddns.net:8085/auth/login', {
+    axios.post('http://videotheque-server.ddns.net:8085/auth/login', {
       username: state.username,
       password: state.passwd,
     })

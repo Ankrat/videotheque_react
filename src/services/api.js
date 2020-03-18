@@ -103,14 +103,57 @@ export default {
   },
 
 
-  getUser: async (url, setUser) => {
+  getUser: async (url, setUser, setState, state) => {
     await axios.get(url, {
       headers: { Authorization: AuthStr },
     })
-      .then( res => setUser(res.data.user))
+      .then( res => {
+        setUser(res.data.user);
+        setState({
+          ...state,
+          fetching: true,
+        });
+      })
       .catch( e => {
         return false;
       } );
+  },
+
+  //=======SEGMENT=======//
+
+  createSegment: async (urlApi, data, state, setState) => {
+    await axios.post(urlApi, { segment: data }, headers)
+      .then(res => setState({
+        ...state,
+        submit: !state.submit,
+      }))
+      .catch(e => console.log(e));
+  },
+
+  updateSegment: async (urlApi, data, state, setState) => {
+    await axios.put(urlApi, {
+      indexSegment: data.index,
+      newSegmentName: data.newSegment,
+    }, headers)
+      .then(res => setState({
+        ...state,
+        submit: !state.submit,
+      }))
+      .catch(e => console.log(e));
+  },
+
+  removeSegment: async (urlApi, data, state, setState) => {
+    await axios.delete(urlApi, {
+      headers: { Authorization: AuthStr },
+      data: { indexSegment: data },
+    })
+      .then(res => {
+        setState({
+          ...state,
+          submit: !state.submit,
+        });
+      })
+      .catch(e => console.log(e));
   },
 
 };
