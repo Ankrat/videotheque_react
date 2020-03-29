@@ -156,4 +156,19 @@ export default {
       .catch(e => console.log(e));
   },
 
+  getSegmentItems: (urlApi, state, setState) => {
+    axios.get(urlApi, {
+      headers: { Authorization: AuthStr },
+    })
+      .then(response => {
+        setState({
+          ...state,
+          get: response.data.data,
+          fetching: false,
+        });
+      }).catch(err => {
+        console.log(err);
+      });
+  },
+
 };

@@ -47,10 +47,7 @@ export default ({
         type={type}
         onClick={async e => {
           e.preventDefault();
-          // setState({
-          //   ...state,
-          //   err_3: false,
-          // });
+
           API.send(url, data, state, setState);
           await state.defaultModal.open();
         }}

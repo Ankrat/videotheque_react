@@ -20,6 +20,7 @@ import up from '../../styles/img/pointing-up.png';
 import down from '../../styles/img/pointing-down.png';
 
 export default (props) => {
+
   const [state, setState] = useState({
     get: [],
     fetching: true,
@@ -28,16 +29,27 @@ export default (props) => {
     slice: 20,
     defaultModal: false,
   });
-
+console.log(state.get);
+console.log(props.segment);
   useEffect(() => {
     if (AuthStr !== null) {
-      API.getIdItems(
+      getItems();
+    }
+  }, [state.statusChange, state.delete, props.segment]);
+
+  const getItems = () => {
+    props.segment === 'Watchlist'
+      ? API.getIdItems(
         urlApi(userId).movie,
         state,
         setState
+      )
+      : API.getSegmentItems(
+        urlApi(userId, props.segment).listSegment,
+        state,
+        setState
       );
-    }
-  }, [state.statusChange, state.delete]);
+  };
 
   const statusView = (_id, status) => {
     axios.put(urlApi(_id).movie, {
@@ -59,92 +71,92 @@ export default (props) => {
         {
           userId
             ? state.fetching
+              ? (
+                <div className="spinner-custom">
+                  <Loader
+                    type="CradleLoader"
+                    color="#00BFFF"
+                    height={100}
+                    width={100}
+                  />
+                </div>
+              ) : state.get.length > 0
                 ? (
-                  <div className="spinner-custom">
-                    <Loader
-                      type="CradleLoader"
-                      color="#00BFFF"
-                      height={100}
-                      width={100}
-                    />
-                  </div>
-                ) : state.get.length > 0
-                  ? (
-                    state.get.slice(0, state.slice).map((items, index) => (
-                      <li key={index} className="li-data">
-                        <div className="film">
-                          <Link to={`/details/movie/${items.movie.id_details}`}>
-                            <Image
-                              src={`${img}w92${items.movie.poster_path}`}
-                              rounded
-                            />
-                            <h6>
-                              {
-                                items.movie.title.length >= 25
-                                  ? items.movie.title.substr(0, 25) + '...'
-                                  : items.movie.title
-                              }
-                            </h6>
-                          </Link>
-                        </div>
-                        <div className="control">
-                          <Dropdown>
-                            <DropdownToggle
-                              className={classNames(
-                                'state',
-                                `state-${items.status}`
-                              )}
-                            >
-                              {
-                                items.status === 'to_see'
-                                  ? 'To See'
-                                  : items.status === 'watching'
-                                    ? 'Watching'
-                                    : 'Seen'
-                              }
-                            </DropdownToggle>
-                            <DropdownMenu>
-                              <DropdownItem>
-                                <Button
-                                  variant="link"
-                                  className="state"
-                                  onClick={ () => statusView(items._id, 'to_see') }
-                                >To See</Button>
-                              </DropdownItem>
-                              <DropdownItem>
-                                <Button
-                                  variant="link"
-                                  className="state"
-                                  onClick={ () => statusView(items._id, 'watching') }
-                                >Watching</Button>
-                              </DropdownItem>
-                              <DropdownItem>
-                                <Button
-                                  variant="link"
-                                  className="state"
-                                  onClick={ () => statusView(items._id, 'seen') }
-                                >Seen</Button>
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </Dropdown>
-                          <ButtonDel
-                            title="Confirm"
-                            className="btn-add button"
-                            reversed={true}
-                            type="danger"
-                            url={urlApi(items._id).movie}
-                            Click={() => setState({
-                              ...state,
-                              delete: !state.delete,
-                            })}
+                  state.get.slice(0, state.slice).map((items, index) => (
+                    <li key={index} className="li-data">
+                      <div className="film">
+                        <Link to={`/details/movie/${items.movie.id_details}`}>
+                          <Image
+                            src={`${img}w92${items.movie.poster_path}`}
+                            rounded
                           />
-                        </div>
-                      </li>
+                          <h6>
+                            {
+                              items.movie.title.length >= 25
+                                ? items.movie.title.substr(0, 25) + '...'
+                                : items.movie.title
+                            }
+                          </h6>
+                        </Link>
+                      </div>
+                      <div className="control">
+                        <Dropdown>
+                          <DropdownToggle
+                            className={classNames(
+                              'state',
+                              `state-${items.status}`
+                            )}
+                          >
+                            {
+                              items.status === 'to_see'
+                                ? 'To See'
+                                : items.status === 'watching'
+                                  ? 'Watching'
+                                  : 'Seen'
+                            }
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem>
+                              <Button
+                                variant="link"
+                                className="state"
+                                onClick={ () => statusView(items._id, 'to_see') }
+                              >To See</Button>
+                            </DropdownItem>
+                            <DropdownItem>
+                              <Button
+                                variant="link"
+                                className="state"
+                                onClick={ () => statusView(items._id, 'watching') }
+                              >Watching</Button>
+                            </DropdownItem>
+                            <DropdownItem>
+                              <Button
+                                variant="link"
+                                className="state"
+                                onClick={ () => statusView(items._id, 'seen') }
+                              >Seen</Button>
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
+                        <ButtonDel
+                          title="Confirm"
+                          className="btn-add button"
+                          reversed={true}
+                          type="danger"
+                          url={urlApi(items._id).movie}
+                          Click={() => setState({
+                            ...state,
+                            delete: !state.delete,
+                          })}
+                        />
+                      </div>
+                    </li>
 
-                    ))
-                  ) : (
-                    <h4>Add movie in watchlist</h4>
-                  )
+                  ))
+                ) : (
+                  <h4>Add movie in watchlist</h4>
+                )
             : (
               <h4>Login to get a watchlist</h4>
             )
