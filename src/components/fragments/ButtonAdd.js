@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, Modal } from '@poool/junipero';
+import { Button, Modal, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from '@poool/junipero';
 
 import API from '../../services/api';
 import oops from '../../styles/img/oops.jpg';
@@ -12,6 +12,7 @@ export default ({
   reversed = true,
   type = 'success',
   data = {},
+  segments = [],
   url,
 }) => {
 
@@ -41,18 +42,45 @@ export default ({
             )
         }
       </Modal>
-      <Button
-        className={className}
-        reversed={reversed}
-        type={type}
-        onClick={async e => {
-          e.preventDefault();
+      <Dropdown theme="none">
+        <DropdownToggle>
+          <Button
+            className={className}
+            reversed={reversed}
+            type={type}
+          >
+            { title }
+          </Button>
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem
+            onClick={async e => {
+              e.preventDefault();
 
-          API.send(url, data, state, setState);
-          await state.defaultModal.open();
-        }}
-      >{ title }
-      </Button>
+              API.send(url, data, null, state, setState);
+              await state.defaultModal.open();
+            }}
+          >
+            <a>General</a>
+          </DropdownItem>
+          {
+            segments.map((item, index) => (
+              <DropdownItem
+                key={index}
+                onClick={async e => {
+                  e.preventDefault();
+
+                  API.send(url, data, item, state, setState);
+                  await state.defaultModal.open();
+                }}
+              >
+                <a>{item}</a>
+              </DropdownItem>
+            ))
+          }
+        </DropdownMenu>
+      </Dropdown>
+
 
     </>
   );

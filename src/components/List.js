@@ -13,8 +13,6 @@ import { Image } from 'react-bootstrap';
 import '../styles/List.css';
 import WatchListMovie from './watchlist/WatchListMovie';
 import WatchListTv from './watchlist/WatchListTv';
-import SegmentMovie from './segment/SegmentMovie';
-import SegmentTv from './segment/SegmentTv';
 import userImg from '../styles/img/userImg.png';
 
 const userName = sessionStorage.getItem('userName');
@@ -28,13 +26,13 @@ export default () => {
 
   const [state, setState] = useState({
     fetching: false,
-    SegmentMovie: 'Watchlist',
+    SegmentMovie: 'General',
   });
 
   useEffect(() => {
     API.getUser(urlApi(userId).user, setUser, setState, state);
   }, []);
-  
+
   return (
     <>
       <SegmentSelector

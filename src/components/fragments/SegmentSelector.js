@@ -14,7 +14,7 @@ export default ({ changeSegment = () => {} }) => {
 
   const [state, setState] = useState({
     fetching: false,
-    segment: 'Watchlist',
+    segment: 'General',
     newSegment: '',
     indexSegment: null,
     segmentOnClick: '',
@@ -127,9 +127,9 @@ export default ({ changeSegment = () => {} }) => {
             onClick={async () => {
               await setState({
                 ...state,
-                segment: 'Watchlist',
+                segment: 'General',
               });
-              await changeSegment('Watchlist');
+              await changeSegment('General');
             }}
           >
             <a>WatchList</a>

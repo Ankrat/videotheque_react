@@ -29,8 +29,7 @@ export default (props) => {
     slice: 20,
     defaultModal: false,
   });
-console.log(state.get);
-console.log(props.segment);
+
   useEffect(() => {
     if (AuthStr !== null) {
       getItems();
@@ -38,7 +37,7 @@ console.log(props.segment);
   }, [state.statusChange, state.delete, props.segment]);
 
   const getItems = () => {
-    props.segment === 'Watchlist'
+    props.segment === 'General'
       ? API.getIdItems(
         urlApi(userId).movie,
         state,

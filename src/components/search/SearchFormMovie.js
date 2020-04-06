@@ -13,7 +13,7 @@ import { url, img, urlApi, userId } from '../../services/content';
 import API from '../../services/api';
 
 
-export default () => {
+export default ({ segments }) => {
 
   // const [user, setUser] = useState(undefined);
 
@@ -160,6 +160,7 @@ export default () => {
                               reversed={true}
                               type="success"
                               url={urlApi(userId).movie}
+                              segments={segments}
                               data={{
                                 poster_path: elem.poster_path,
                                 title: elem.title,

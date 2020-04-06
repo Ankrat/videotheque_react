@@ -26,7 +26,6 @@ export default () => {
     API.getUser(urlApi(userId).user, setUser);
   }, []);
 
-
   const adultUpdate = async (bool) => {
     await axios.put(urlApi(userId).user, {
       adult: bool,
@@ -109,7 +108,15 @@ export default () => {
         }
       </div>
       <Tabs>
-        <Tab title="Movie"><SearchFormMovie /></Tab>
+        <Tab title="Movie">
+          <SearchFormMovie
+            segments={
+              user
+                ? user.segments
+                : []
+            }
+          />
+        </Tab>
         <Tab title="Tv"><SearchFormTv /></Tab>
       </Tabs>
     </>

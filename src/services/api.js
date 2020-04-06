@@ -68,13 +68,14 @@ export default {
     return axios.put(`${burl}watchlist-mv/`);
   },
 
-  send: async (url, data, state, setState) => {
+  send: async (url, data, segment, state, setState) => {
 
     try {
       const response = await axios.post(url, {
         title: data.title,
         poster_path: data.poster_path,
         id_details: data.id_details,
+        segment: segment,
       }, headers);
       if (response.data.code === 3) {
         setState({
